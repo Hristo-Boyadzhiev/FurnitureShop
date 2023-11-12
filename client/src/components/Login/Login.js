@@ -23,12 +23,12 @@ export default function Login() {
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" className="btn btn-primary-hover-outline">Send Message</button>  
+                                <button type="submit" className="btn btn-primary-hover-outline">Login</button>  
                             </form>
                         </div>
                     </div>
                 </div>
-         
+
         </div>
     )
 }

@@ -3,18 +3,15 @@ import { Link } from "react-router-dom"
 export default function Home() {
     return (
         <>
-            {/* // <!-- Start Hero Section --> */}
+           
             <div className="hero">
                 <div className="container">
                     <div className="row justify-content-between">
                         <div className="col-lg-5">
                             <div className="intro-excerpt">
                                 <h1>Furniture store <span clsas="d-block">Troyan</span></h1>
-                                <p className="mb-4">We strive to select and offer quality, beautiful, modern and practical furniture to make your experience in our online store pleasant, useful and satisfying.
-                                    <p>Happy shopping!</p></p>
-                                {/* <p><Link to={"/dada"} className="btn btn-secondary me-2">Shop Now</Link> */}
-                                {/* <Link to={"/dada"} className="btn btn-white-outline">Explore</Link> */}
-                                {/* </p> */}
+                                <p className="mb-4">We strive to select and offer quality, beautiful, modern and practical furniture to make your experience in our online store pleasant, useful and satisfying.</p>
+                                <p>Happy shopping!</p>
                             </div>
                         </div>
                         <div className="col-lg-7">
@@ -25,23 +22,18 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-            {/* <!-- End Hero Section --> */}
+            
 
-            {/* // <!-- Start Product Section --> */}
             <div className="product-section">
                 <div className="container">
                     <div className="row">
 
-                        {/* <!-- Start Column 1 --> */}
                         <div className="col-md-12 col-lg-3 mb-5 mb-lg-0">
                             <h2 className="mb-4 section-title">Crafted with excellent material</h2>
                             <p className="mb-4">We believe that everyone deserves real quality. That's why we have a strict supplier selection policy and are careful to provide you with furniture that will be both practical and durable and made with attention to every detail.</p>
-                            {/* <p><Link to="/catalog" className="btn">Explore</Link></p> */}
                             <p><Link to={"/dada"} className="btn btn-secondary me-2">Shop Now</Link></p>
                         </div>
-                        {/* <!-- End Column 1 --> */}
-
-                        {/* <!-- Start Column 2 --> */}
+                       
                         <div className="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
                             <Link className="product-item" to={"cart.html"}>
                                 <img src="images/product-1.png" className="img-fluid product-thumbnail" alt="" />

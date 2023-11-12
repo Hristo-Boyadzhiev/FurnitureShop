@@ -34,7 +34,7 @@ export default function Register() {
                                 </div>
 
 
-                                <button type="submit" className="btn btn-primary-hover-outline">Send Message</button>
+                                <button type="submit" className="btn btn-primary-hover-outline">Register</button>
                             </form>
                         </div>
                     </div>
