@@ -16,7 +16,8 @@ export default function Header() {
             <li className="nav-item active">
                 <Link className="nav-link" to={"/"}>Home</Link>
             </li>
-            <li><Link className="nav-link" to={"/catalog"}>Shop</Link></li>
+            <li><Link className="nav-link" to={"/catalog"}>Catalog</Link></li>
+            <li><Link className="nav-link" to={"/create"}>Create</Link></li>
             <li><Link className="nav-link" to={"/about"}>About us</Link></li>
             <li><Link className="nav-link" to={"/services"}>Services</Link></li>
             <li><Link className="nav-link" to={"/blog"}>Blog</Link></li>
