@@ -1,4 +1,4 @@
-export default function Login() {
+export default function Register() {
     return (
         <div className="untree_co-section">
             <div className="container">
@@ -23,7 +23,18 @@ export default function Login() {
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" className="btn btn-primary-hover-outline">Send Message</button>  
+
+                                <div>
+                                    <div className="col-6">
+                                        <div className="form-group">
+                                            <label className="text-black" htmlFor="repeatPassword">Repeat password</label>
+                                            <input type="text" className="form-control" id="repeatPassword" />
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <button type="submit" className="btn btn-primary-hover-outline">Send Message</button>
                             </form>
                         </div>
                     </div>

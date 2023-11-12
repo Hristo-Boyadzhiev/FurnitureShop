@@ -6,6 +6,7 @@ import Home from './components/Home/Home';
 import Catalog from './components/Catalog/Catalog';
 import Contacts from './components/Contacts/Contacts';
 import Login from './components/Login/Login';
+import Register from './components/Register/Register';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
   <Route path='/catalog' element={<Catalog />} />
   <Route path='/contacts' element={<Contacts />} />
   <Route path='/login' element={<Login />} />
+  <Route path='/register' element={<Register />} />
 
 </Routes>
 
