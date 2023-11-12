@@ -21,10 +21,13 @@ export default function Header() {
             <li><Link className="nav-link" to={"/services"}>Services</Link></li>
             <li><Link className="nav-link" to={"/blog"}>Blog</Link></li>
             <li><Link className="nav-link" to={"/contacts"}>Contact us</Link></li>
+            <li><Link className="nav-link" to={"/login"}>Login</Link></li>
+            <li><Link className="nav-link" to={"/register"}>Register</Link></li>
+            <li><Link className="nav-link" to={"/contacts"}>Logout</Link></li>
         </ul>
 
         <ul className="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-            <li><Link className="nav-link" to={"/dada"}><img src="images/user.svg" alt='' /></Link></li>
+            {/* <li><Link className="nav-link" to={"/dada"}><img src="images/user.svg" alt='' /></Link></li> */}
             <li><Link className="nav-link" to={"cart.html"}><img src="images/cart.svg" alt='' /></Link></li>
         </ul>
     </div>
