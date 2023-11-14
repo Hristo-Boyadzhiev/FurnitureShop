@@ -10,6 +10,7 @@ export default function Catalog() {
 		furnitureService.getFurnitures()
 			.then(currentFurnitures => {
 				setFurnitures(currentFurnitures)
+				// console.log(currentFurnitures)
 			})
 	}, [])
 

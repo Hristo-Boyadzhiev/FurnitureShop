@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3030/jsonstore'
+const baseUrl = 'http://localhost:3030/jsonstore/furnitures'
 
 export async function createFurniture(data){
     const response = await fetch(baseUrl, {

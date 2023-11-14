@@ -1,23 +1,13 @@
-import { useState } from "react"
+import { useForm } from "../../hooks/useForm"
 
-export default function Create({
-    onSubmitCreateHandler
-}) {
-    const [formValues, setFormValues] = useState({
+export default function Create() {
+    const {formValues, onChangeHandler, onSubmit} = useForm({
         model: '',
         price: '',
         imageUrl: '',
         description: ''
+    }, ()=>{
     })
-
-    const onChangeHandler = (event) => {
-        setFormValues(state => ({ ...state, [event.target.name]: event.target.value }))
-    }
-
-    const onSubmitHandler = (event) => {
-        event.preventDefault()
-        onSubmitCreateHandler(formValues)
-    }
 
     return (
         <div className="untree_co-section">
@@ -25,7 +15,7 @@ export default function Create({
 
                 <div className="row justify-content-center">
                     <div className="col-md-15 col-lg-8 pb-4">
-                        <form onSubmit={onSubmitHandler}>
+                        <form onSubmit={onSubmit}>
                             <div className="row">
                                 <div className="col-6">
                                     <div className="form-group">

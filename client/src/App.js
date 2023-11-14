@@ -1,7 +1,5 @@
 // import './App.css';
 import { Routes, Route } from 'react-router-dom'
-import { useNavigate } from "react-router-dom"
-import * as furnitureService from './Services/furnitureService'
 
 import Header from "./components/Header/Header";
 import Home from './components/Home/Home';
@@ -13,14 +11,6 @@ import Create from './components/Create/Create';
 
 
 function App() {
-  const navigate = useNavigate()
-
-  const onSubmitCreateHandler = (formValues) => {
-    furnitureService.createFurniture(formValues)
-      .then(newFurniture => {
-        navigate('/catalog')
-      })
-  }
 
   return (
     <>
@@ -32,7 +22,7 @@ function App() {
         <Route path='/contacts' element={<Contacts />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} /> 
-        <Route path='/create' element={<Create onSubmitCreateHandler={onSubmitCreateHandler}/>} />
+        <Route path='/create' element={<Create/>} />
 
       </Routes>
 
