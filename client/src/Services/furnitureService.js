@@ -22,5 +22,10 @@ export async function getFurnitures(){
     } catch (error) {
         return []
     }
-    
+}
+
+export async function getFurniture(furnitureId){
+    const response = await fetch(`${baseUrl}/${furnitureId}`)
+    const result = await response.json()
+    return result
 }

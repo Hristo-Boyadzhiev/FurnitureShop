@@ -241,7 +241,7 @@ a {
       -o-transition: .3s all ease;
       transition: .3s all ease; }
       .product-section .product-item .icon-cross img {
-        position: absolute;
+        position: absolceute;
         left: 50%;
         top: 50%;
         -webkit-transform: translate(-50%, -50%);
@@ -263,6 +263,7 @@ a {
     .product-section .product-item:hover .product-thumbnail {
       top: -25px; }
     .product-section .product-item:hover .icon-cross {
+      position: center; 
       bottom: 0;
       opacity: 1;
       visibility: visible; }
