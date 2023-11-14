@@ -6,7 +6,6 @@ export default function Create() {
         price: '',
         imageUrl: '',
         description: ''
-    }, ()=>{
     })
 
     return (
