@@ -29,3 +29,11 @@ export async function getFurniture(furnitureId){
     const result = await response.json()
     return result
 }
+
+export async function deleteFurniture(furnitureId){
+    const response = await fetch(`${baseUrl}/${furnitureId}`, {
+        method: 'DELETE'
+    })
+    const result = await response.json()
+    return result
+}

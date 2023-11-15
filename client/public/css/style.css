@@ -263,7 +263,6 @@ a {
     .product-section .product-item:hover .product-thumbnail {
       top: -25px; }
     .product-section .product-item:hover .icon-cross {
-      position: center; 
       bottom: 0;
       opacity: 1;
       visibility: visible; }

@@ -6,7 +6,7 @@ export default function CatalogItem({
 
     return (
         <div className="col-12 col-md-4 col-lg-3 mb-5">
-            <Link className="product-item" to={`/details/${furniture._id}`}>
+            <Link className="product-item" to={`${furniture._id}/details/`}>
 
                 <img src={furniture.imageUrl} className="img-fluid product-thumbnail" alt={furniture.model} />
                 <h3 className="product-title">{furniture.model}</h3>
