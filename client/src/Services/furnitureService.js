@@ -37,3 +37,15 @@ export async function deleteFurniture(furnitureId){
     const result = await response.json()
     return result
 }
+
+export async function editurniture(furnitureId, formValues){
+    const response = await fetch(`${baseUrl}/${furnitureId}`, {
+        method: 'PUT',
+        headers: {
+            'content-type': 'application/json'
+        }, 
+        body: JSON.stringify(formValues)
+    })
+    const result = await response.json()
+    return result
+}

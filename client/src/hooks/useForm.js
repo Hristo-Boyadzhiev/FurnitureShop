@@ -10,12 +10,19 @@ export const useForm = (initialValues) => {
         setFormValues(state => ({ ...state, [event.target.name]: event.target.value }))
     }
 
-    const onSubmit = (event) => {
+    const onSubmit = (event, furnitureId) => {
         event.preventDefault()
-        furnitureService.createFurniture(formValues)
-            .then(newFurniture => {
-                navigate('/catalog')
-            })
+        if (furnitureId) {
+            furnitureService.editurniture(furnitureId, formValues)
+                .then(editFurniture => {
+                    navigate(`/catalog`)
+                })
+        } else {
+            furnitureService.createFurniture(formValues)
+                .then(newFurniture => {
+                    navigate('/catalog')
+                })
+        }
     }
 
     return {

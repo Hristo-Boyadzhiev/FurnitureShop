@@ -1,12 +1,15 @@
-import { useParams, Routes, Route, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import * as furnitureService from '../../Services/furnitureService'
 import { Link } from 'react-router-dom'
+import Create from '../Create/Create'
 
 
 export default function Contact() {
     const { furnitureId } = useParams()
     const [furniture, setFurniture] = useState('')
+    const [showDetailsPage, setShowDetailsPage] = useState(true)
+    const [showEditPage, setShowEditPage] = useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -28,10 +31,14 @@ export default function Contact() {
         }
     }
 
+    const onEditClick = (event)=>{
+        setShowDetailsPage(false)
+        setShowEditPage(true)
+    }
 
     return (
         <>
-            <div className="untree_co-section">
+            {showDetailsPage && <div className="untree_co-section">
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12 text-center pt-5">
@@ -42,13 +49,9 @@ export default function Contact() {
                             <p>{furniture.description}</p>
 
                             <nav>
-                                <Link to={"edit"} className="btn btn-sm btn-outline-black">Edit</Link>
-                                <Link to={`delete`} className="btn btn-sm btn-outline-black" onClick={onDeleteClick}>Delete</Link>
+                                <Link to={"edit"} className="btn btn-sm btn-outline-black" onClick={onEditClick}>Edit</Link>
+                                <Link to={"delete"} className="btn btn-sm btn-outline-black" onClick={onDeleteClick}>Delete</Link>
                             </nav>
-
-                            <Routes>
-                                <Route path={`/catalog/${furniture._id}/edit`} element />
-                            </Routes>
 
                             <div>
                                 <div>
@@ -58,8 +61,10 @@ export default function Contact() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>}
 
-        </>
+            {showEditPage && <Create furniture={furniture}/>}
+
+        </> 
     )
 }

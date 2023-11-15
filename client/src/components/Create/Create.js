@@ -1,12 +1,21 @@
 import { useForm } from "../../hooks/useForm"
 
-export default function Create() {
-    const {formValues, onChangeHandler, onSubmit} = useForm({
-        model: '',
-        price: '',
-        imageUrl: '',
-        description: ''
-    })
+export default function Create({
+    furniture
+}) {
+    const { formValues, onChangeHandler, onSubmit } = useForm(furniture ?
+        {
+            model: furniture.model,
+            price: furniture.price,
+            imageUrl: furniture.imageUrl,
+            description: furniture.description
+        } :
+        {
+            model: '',
+            price: '',
+            imageUrl: '',
+            description: ''
+        })
 
     return (
         <div className="untree_co-section">
@@ -14,7 +23,7 @@ export default function Create() {
 
                 <div className="row justify-content-center">
                     <div className="col-md-15 col-lg-8 pb-4">
-                        <form onSubmit={onSubmit}>
+                        <form onSubmit={furniture ?(event)=>onSubmit(event, furniture._id) :onSubmit}>
                             <div className="row">
                                 <div className="col-6">
                                     <div className="form-group">
@@ -35,13 +44,13 @@ export default function Create() {
                                         <div className="form-group">
                                             <label className="text-black" htmlFor="price">Price</label>
                                             <input
-                                            type="text"
-                                            className="form-control"
-                                            name="price"
-                                            id="price"
-                                            value={formValues.price}
-                                            onChange={onChangeHandler}
-                                        />
+                                                type="text"
+                                                className="form-control"
+                                                name="price"
+                                                id="price"
+                                                value={formValues.price}
+                                                onChange={onChangeHandler}
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -51,13 +60,13 @@ export default function Create() {
                                         <div className="form-group">
                                             <label className="text-black" htmlFor="imageUrl">Image</label>
                                             <input
-                                            type="text"
-                                            className="form-control"
-                                            name="imageUrl"
-                                            id="imageUrl"
-                                            value={formValues.imageUrl}
-                                            onChange={onChangeHandler}
-                                        />
+                                                type="text"
+                                                className="form-control"
+                                                name="imageUrl"
+                                                id="imageUrl"
+                                                value={formValues.imageUrl}
+                                                onChange={onChangeHandler}
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -81,7 +90,7 @@ export default function Create() {
 
                             </div>
 
-                            <button type="submit" className="btn btn-primary-hover-outline">Create</button>
+                            <button type="submit" className="btn btn-primary-hover-outline">{furniture ?'Edit' :'Create'}</button>
                         </form>
                     </div>
                 </div>
