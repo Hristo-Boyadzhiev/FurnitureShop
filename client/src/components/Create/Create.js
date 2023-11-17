@@ -1,21 +1,15 @@
+import { useContext } from "react"
 import { useForm } from "../../hooks/useForm"
+import { FurnitureContext } from "../contexts/FurnitureContext"
 
-export default function Create({
-    furniture
-}) {
-    const { formValues, onChangeHandler, onSubmit } = useForm(furniture ?
-        {
-            model: furniture.model,
-            price: furniture.price,
-            imageUrl: furniture.imageUrl,
-            description: furniture.description
-        } :
-        {
-            model: '',
-            price: '',
-            imageUrl: '',
-            description: ''
-        })
+export default function Create() {
+    const { onCreateSubmit } = useContext(FurnitureContext)
+    const { formValues, onChangeHandler, onSubmit } = useForm({
+        model: '',
+        price: '',
+        imageUrl: '',
+        description: ''
+    }, onCreateSubmit)
 
     return (
         <div className="untree_co-section">
@@ -23,7 +17,7 @@ export default function Create({
 
                 <div className="row justify-content-center">
                     <div className="col-md-15 col-lg-8 pb-4">
-                        <form onSubmit={furniture ?(event)=>onSubmit(event, furniture._id) :onSubmit}>
+                        <form method="POST" onSubmit={onSubmit}>
                             <div className="row">
                                 <div className="col-6">
                                     <div className="form-group">
@@ -90,7 +84,7 @@ export default function Create({
 
                             </div>
 
-                            <button type="submit" className="btn btn-primary-hover-outline">{furniture ?'Edit' :'Create'}</button>
+                            <button type="submit" className="btn btn-primary-hover-outline">Create</button>
                         </form>
                     </div>
                 </div>

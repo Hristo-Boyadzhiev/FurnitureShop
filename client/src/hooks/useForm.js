@@ -1,28 +1,15 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import * as furnitureService from '../Services/furnitureService'
 
-export const useForm = (initialValues) => {
+export const useForm = (initialValues, onSubmitHandler) => {
     const [formValues, setFormValues] = useState(initialValues)
-    const navigate = useNavigate()
 
     const onChangeHandler = (event) => {
         setFormValues(state => ({ ...state, [event.target.name]: event.target.value }))
     }
 
-    const onSubmit = (event, furnitureId) => {
+    const onSubmit = (event) => {
         event.preventDefault()
-        if (furnitureId) {
-            furnitureService.editurniture(furnitureId, formValues)
-                .then(editFurniture => {
-                    navigate(`/catalog`)
-                })
-        } else {
-            furnitureService.createFurniture(formValues)
-                .then(newFurniture => {
-                    navigate('/catalog')
-                })
-        }
+        onSubmitHandler(formValues)
     }
 
     return {
