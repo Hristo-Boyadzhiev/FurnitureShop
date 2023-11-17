@@ -4,7 +4,7 @@ import * as furnitureService from '../../services/furnitureService'
 import { Link } from 'react-router-dom'
 import Create from '../Create/Create'
 import { FurnitureContext } from '../../contexts/FurnitureContext'
-import { authContext } from '../../contexts/AuthContext'
+import { AuthContext } from '../../contexts/AuthContext'
 
 export default function Contact() {
     const { furnitureId } = useParams()
@@ -12,7 +12,7 @@ export default function Contact() {
     const [showDetailsPage, setShowDetailsPage] = useState(true)
     const [showEditPage, setShowEditPage] = useState(false)
     const navigate = useNavigate()
-    const { isAuthenticated } = useContext(authContext)
+    const { isAuthenticated } = useContext(AuthContext)
 
     useEffect(() => {
         furnitureService.getFurniture(furnitureId)

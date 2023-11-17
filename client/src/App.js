@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Logout from './components/Logout/Logout';
 import { FurnitureContext } from './contexts/FurnitureContext';
-import { authContext } from './contexts/AuthContext';
+import { AuthContext } from './contexts/AuthContext';
 
 function App() {
   const [auth, setAuth] = useState({})
@@ -85,7 +85,7 @@ function App() {
   }
 
   return (
-    <authContext.Provider value={authContextValues}>
+    <AuthContext.Provider value={authContextValues}>
       <FurnitureContext.Provider value={furnitureContextValues}>
         <Header />
 
@@ -100,7 +100,7 @@ function App() {
           <Route path='/catalog/:furnitureId/details/*' element={<Details />} />
         </Routes>
       </FurnitureContext.Provider>
-    </authContext.Provider>
+    </AuthContext.Provider>
   );
 }
 
