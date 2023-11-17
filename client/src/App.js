@@ -9,8 +9,8 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Create from './components/Create/Create';
 import Details from './components/Details/Details';
-import * as furnitureService from './services/furnitureService'
-import * as authService from './services/authService'
+import * as furnitureService from './services_old/furnitureService'
+import * as authService from './services_old/authService'
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Logout from './components/Logout/Logout';
