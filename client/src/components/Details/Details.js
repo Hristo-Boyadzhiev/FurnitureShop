@@ -1,9 +1,10 @@
 import { useParams, useNavigate, Route, Routes } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import * as furnitureService from '../../Services/furnitureService'
 import { Link } from 'react-router-dom'
 import Create from '../Create/Create'
 import { FurnitureContext } from '../../contexts/FurnitureContext'
+import { authContext } from '../../contexts/authContext'
 
 export default function Contact() {
     const { furnitureId } = useParams()
@@ -11,6 +12,7 @@ export default function Contact() {
     const [showDetailsPage, setShowDetailsPage] = useState(true)
     const [showEditPage, setShowEditPage] = useState(false)
     const navigate = useNavigate()
+    const { isAuthenticated } = useContext(authContext)
 
     useEffect(() => {
         furnitureService.getFurniture(furnitureId)
@@ -31,19 +33,19 @@ export default function Contact() {
         }
     }
 
-    const onEditClick = (event)=>{
+    const onEditClick = (event) => {
         setShowDetailsPage(false)
         setShowEditPage(true)
     }
 
     const onEditSubmit = async (furnitureId, formValues) => {
         try {
-          furnitureService.editurniture(furnitureId, formValues)
-          navigate(`/catalog`)
+            furnitureService.editurniture(furnitureId, formValues)
+            navigate(`/catalog`)
         } catch (error) {
-          alert(error.message)
+            alert(error.message)
         }
-      }
+    }
 
     return (
         <>
@@ -57,10 +59,11 @@ export default function Contact() {
                             <p>${furniture.price}</p>
                             <p>{furniture.description}</p>
 
-                            <nav>
-                                <Link to={"edit"} className="btn btn-sm btn-outline-black" onClick={()=>onEditClick(furniture._id)}>Edit</Link>
-                                <Link to={"delete"} className="btn btn-sm btn-outline-black" onClick={onDeleteClick}>Delete</Link>
-                            </nav>
+                            {isAuthenticated &&
+                                <nav>
+                                    <Link to={"edit"} className="btn btn-sm btn-outline-black" onClick={() => onEditClick(furniture._id)}>Edit</Link>
+                                    <Link to={"delete"} className="btn btn-sm btn-outline-black" onClick={onDeleteClick}>Delete</Link>
+                                </nav>}
 
                             <div>
                                 <div>
@@ -73,14 +76,14 @@ export default function Contact() {
             </div>}
 
             {/* {showEditPage && <Create furniture={furniture}/>} */}
-            {showEditPage && 
-            <FurnitureContext.Provider value={{furniture, onEditSubmit}}>
-            <Routes> 
-                <Route path='/edit' element={<Create />} />
-            </Routes>
-            </FurnitureContext.Provider>
+            {showEditPage &&
+                <FurnitureContext.Provider value={{ furniture, onEditSubmit }}>
+                    <Routes>
+                        <Route path='/edit' element={<Create />} />
+                    </Routes>
+                </FurnitureContext.Provider>
             }
 
-        </> 
+        </>
     )
 }
