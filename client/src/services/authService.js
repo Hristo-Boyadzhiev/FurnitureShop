@@ -9,6 +9,10 @@ export async function login(loginData) {
         body: JSON.stringify(loginData)
     })
 
+    if(response.status === 204){
+        return {}
+    }
+
     const result = await response.json()
 
     if (!response.ok) {
@@ -27,7 +31,10 @@ export async function register(registerData) {
         },
         body: JSON.stringify(registerData)
     })
-
+    
+    if(response.status === 204){
+        return {}
+    }
     const result = await response.json()
 
     if (!response.ok) {
