@@ -1,9 +1,9 @@
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Route, Routes } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import * as furnitureService from '../../Services/furnitureService'
 import { Link } from 'react-router-dom'
 import Create from '../Create/Create'
-
+import { FurnitureContext } from '../../contexts/FurnitureContext'
 
 export default function Contact() {
     const { furnitureId } = useParams()
@@ -36,6 +36,15 @@ export default function Contact() {
         setShowEditPage(true)
     }
 
+    const onEditSubmit = async (furnitureId, formValues) => {
+        try {
+          furnitureService.editurniture(furnitureId, formValues)
+          navigate(`/catalog`)
+        } catch (error) {
+          alert(error.message)
+        }
+      }
+
     return (
         <>
             {showDetailsPage && <div className="untree_co-section">
@@ -49,7 +58,7 @@ export default function Contact() {
                             <p>{furniture.description}</p>
 
                             <nav>
-                                <Link to={"edit"} className="btn btn-sm btn-outline-black" onClick={onEditClick}>Edit</Link>
+                                <Link to={"edit"} className="btn btn-sm btn-outline-black" onClick={()=>onEditClick(furniture._id)}>Edit</Link>
                                 <Link to={"delete"} className="btn btn-sm btn-outline-black" onClick={onDeleteClick}>Delete</Link>
                             </nav>
 
@@ -63,7 +72,14 @@ export default function Contact() {
                 </div>
             </div>}
 
-            {showEditPage && <Create furniture={furniture}/>}
+            {/* {showEditPage && <Create furniture={furniture}/>} */}
+            {showEditPage && 
+            <FurnitureContext.Provider value={{furniture, onEditSubmit}}>
+            <Routes> 
+                <Route path='/edit' element={<Create />} />
+            </Routes>
+            </FurnitureContext.Provider>
+            }
 
         </> 
     )

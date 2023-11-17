@@ -1,15 +1,23 @@
 import { useContext } from "react"
 import { useForm } from "../../hooks/useForm"
-import { FurnitureContext } from "../contexts/FurnitureContext"
+import { FurnitureContext } from "../../contexts/FurnitureContext"
 
 export default function Create() {
-    const { onCreateSubmit } = useContext(FurnitureContext)
+    // const { onCreateSubmit } = useContext(FurnitureContext)
+    // const { formValues, onChangeHandler, onSubmit } = useForm({
+    //     model: '',
+    //     price: '',
+    //     imageUrl: '',
+    //     description: ''
+    // }, onCreateSubmit)
+
+    const context = useContext(FurnitureContext)
     const { formValues, onChangeHandler, onSubmit } = useForm({
         model: '',
         price: '',
         imageUrl: '',
         description: ''
-    }, onCreateSubmit)
+    }, context)
 
     return (
         <div className="untree_co-section">
