@@ -40,8 +40,18 @@ function App() {
   const onLoginSubmit = async (formValues) => {
     try {
       const loggedUser = await authService.login(formValues)
-      console.log(loggedUser)
       setAuth(loggedUser)
+      navigate('/')
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+
+  const onRegisterSubmit = async (formValues)=>{
+    try {
+      const registeredUser = await authService.register(formValues)
+      console.log(registeredUser)
+      setAuth(registeredUser)
       navigate('/')
     } catch (error) {
       alert(error.message)
@@ -54,7 +64,12 @@ function App() {
   }
 
   const contextAuth = {
-    onLoginSubmit
+    onLoginSubmit,
+    onRegisterSubmit,
+    userId: auth._id,
+    userEmail: auth.email,
+    userToken: auth.accessToken,
+    isAuthenticated: !!auth.accessToken
   }
 
   return (
