@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import * as furnitureService from '../../services_old/furnitureService'
+import * as furnitureService from '../../services/furnitureService'
 import CatalogItem from './CatalogItem'
 import { Link } from 'react-router-dom'
 

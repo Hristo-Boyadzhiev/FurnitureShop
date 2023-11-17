@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Logout from './components/Logout/Logout';
 import { FurnitureContext } from './contexts/FurnitureContext';
-import { AuthContext } from './contexts/AuthContexts';
+import { AuthContext } from './contexts/AuthContext'; 
 
 function App() {
   const [auth, setAuth] = useState({})
