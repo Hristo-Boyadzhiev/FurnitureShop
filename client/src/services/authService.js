@@ -22,7 +22,7 @@ export async function login(loginData) {
     return result
 }
 
-export async function login(registerData) {
+export async function register(registerData) {
     const response = await fetch(`${baseUrl}/register`, {
         method: 'POST',
         headers: {
