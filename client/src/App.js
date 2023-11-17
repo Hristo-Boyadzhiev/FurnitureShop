@@ -69,12 +69,12 @@ function App() {
     setAuth({})
   }
 
-  const furnitureContext = {
+  const furnitureContextValues = {
     onCreateSubmit,
     // onEditSubmit
   }
 
-  const contextAuth = {
+  const authContextValues = {
     onLoginSubmit,
     onRegisterSubmit,
     onLogout,
@@ -85,8 +85,8 @@ function App() {
   }
 
   return (
-    <authContext.Provider value={contextAuth}>
-      <FurnitureContext.Provider value={furnitureContext}>
+    <authContext.Provider value={authContextValues}>
+      <FurnitureContext.Provider value={furnitureContextValues}>
         <Header />
 
         <Routes>
