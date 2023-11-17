@@ -9,17 +9,18 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Create from './components/Create/Create';
 import Details from './components/Details/Details';
-// import * as furnitureService from './services/furnitureService'
-
+import * as furnitureService from './services/furnitureService'
+import * as authService from './services/authService'
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Logout from './components/Logout/Logout';
 import { FurnitureContext } from './contexts/FurnitureContext';
-import { authContext } from './contexts/authContext';
+import { authContext } from './contexts/AuthContext';
 
 function App() {
   const [auth, setAuth] = useState({})
   const navigate = useNavigate()
+
   const onCreateSubmit = async (formValues) => {
     try {
       await furnitureService.createFurniture(formValues)
@@ -50,9 +51,11 @@ function App() {
 
   const onRegisterSubmit = async (formValues) => {
     const { repeatPassword, ...registerData } = formValues
+
     if (repeatPassword !== registerData.password) {
       return alert('The password and repeat password must be equal')
     }
+
     try {
       const registeredUser = await authService.register(formValues)
       setAuth(registeredUser)

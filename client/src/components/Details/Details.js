@@ -1,10 +1,10 @@
 import { useParams, useNavigate, Route, Routes } from 'react-router-dom'
 import { useState, useEffect, useContext } from 'react'
-// import * as furnitureService from '../../services/furnitureService'
+import * as furnitureService from '../../services/furnitureService'
 import { Link } from 'react-router-dom'
 import Create from '../Create/Create'
 import { FurnitureContext } from '../../contexts/FurnitureContext'
-import { authContext } from '../../contexts/authContext'
+import { authContext } from '../../contexts/AuthContext'
 
 export default function Contact() {
     const { furnitureId } = useParams()

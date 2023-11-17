@@ -92,7 +92,7 @@ export default function Home() {
                                 <div className="col-6 col-md-6">
                                     <div className="feature">
                                         <div className="icon">
-                                            <img src="images/truck.svg" alt="Image" className="imf-fluid" />
+                                            <img src="images/truck.svg" alt="" className="imf-fluid" />
                                         </div>
                                         <h3>Fast &amp; Free Shipping</h3>
                                         <p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
@@ -102,7 +102,7 @@ export default function Home() {
                                 <div className="col-6 col-md-6">
                                     <div className="feature">
                                         <div className="icon">
-                                            <img src="images/bag.svg" alt="Image" className="imf-fluid" />
+                                            <img src="images/bag.svg" alt="" className="imf-fluid" />
                                         </div>
                                         <h3>Easy to Shop</h3>
                                         <p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
@@ -112,7 +112,7 @@ export default function Home() {
                                 <div className="col-6 col-md-6">
                                     <div className="feature">
                                         <div className="icon">
-                                            <img src="images/support.svg" alt="Image" className="imf-fluid" />
+                                            <img src="images/support.svg" alt="" className="imf-fluid" />
                                         </div>
                                         <h3>24/7 Support</h3>
                                         <p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
@@ -122,7 +122,7 @@ export default function Home() {
                                 <div className="col-6 col-md-6">
                                     <div className="feature">
                                         <div className="icon">
-                                            <img src="images/return.svg" alt="Image" className="imf-fluid" />
+                                            <img src="images/return.svg" alt="" className="imf-fluid" />
                                         </div>
                                         <h3>Hassle Free Returns</h3>
                                         <p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
@@ -134,7 +134,7 @@ export default function Home() {
 
                         <div className="col-lg-5">
                             <div className="img-wrap">
-                                <img src="images/why-choose-us-img.jpg" alt="Image" className="img-fluid" />
+                                <img src="images/why-choose-us-img.jpg" alt="" className="img-fluid" />
                             </div>
                         </div>
 
@@ -330,9 +330,9 @@ export default function Home() {
 
                         <div className="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
                             <div className="post-entry">
-                                <Link to={"/dada"} className="post-thumbnail"><img src="images/post-1.jpg" alt="Image" className="img-fluid" /></Link>
+                                <Link to={"/dada"} className="post-thumbnail"><img src="images/post-1.jpg" alt="" className="img-fluid" /></Link>
                                 <div className="post-content-entry">
-                                    <h3><a to="#">First Time Home Owner Ideas</a></h3>
+                                    <h3><Link to="#">First Time Home Owner Ideas</Link></h3>
                                     <div className="meta">
                                         <span>by <Link to={"#"}>Kristin Watson</Link></span> <span>on <Link to={"#"}>Dec 19, 2021</Link></span>
                                     </div>
@@ -342,7 +342,7 @@ export default function Home() {
 
                         <div className="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
                             <div className="post-entry">
-                                <Link to="#" className="post-thumbnail"><img src="images/post-2.jpg" alt="Image" className="img-fluid" /></Link>
+                                <Link to="#" className="post-thumbnail"><img src="images/post-2.jpg" alt="" className="img-fluid" /></Link>
                                 <div className="post-content-entry">
                                     <h3><Link to={"/dada"}>How To Keep Your Furniture Clean</Link></h3>
                                     <div className="meta">
@@ -354,7 +354,7 @@ export default function Home() {
 
                         <div className="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
                             <div className="post-entry">
-                                <Link to={"#"} className="post-thumbnail"><img src="images/post-3.jpg" alt="Image" className="img-fluid" /></Link>
+                                <Link to={"#"} className="post-thumbnail"><img src="images/post-3.jpg" alt="" className="img-fluid" /></Link>
                                 <div className="post-content-entry">
                                     <h3><Link to={"#"}>Small Space Furniture Apartment Ideas</Link></h3>
                                     <div className="meta">
@@ -467,13 +467,13 @@ export default function Home() {
                     <div className="border-top copyright">
                         <div className="row pt-4">
                             <div className="col-lg-6">
-                                <p className="mb-2 text-center text-lg-start">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a to="https://untree.co">Untree.co</a> Distributed By <a tof="https://themewagon.com">ThemeWagon</a>
+                                <p className="mb-2 text-center text-lg-start">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <Link to={"https://untree.co"}>Untree.co</Link> Distributed By <Link to={"https://themewagon.com"}>ThemeWagon</Link>
                                 </p>
                             </div>
 
                             <div className="col-lg-6 text-center text-lg-end">
                                 <ul className="list-unstyled d-inline-flex ms-auto">
-                                    <li className="me-4"><a to="#">Terms &amp; Conditions</a></li>
+                                    <li className="me-4"><Link to={"#"}>Terms &amp; Conditions</Link></li>
                                     <li><Link to={"#"}>Privacy Policy</Link></li>
                                 </ul>
                             </div>
