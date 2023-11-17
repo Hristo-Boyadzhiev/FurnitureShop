@@ -18,8 +18,9 @@ export async function login(loginData) {
     return result
 }
 
-export async function register(registerData) {
- 
+export async function register(data) {
+    const { repeatPassword, ...registerData } = data
+
     const response = await fetch(`${baseUrl}/register`, {
         method: 'POST',
         headers: {

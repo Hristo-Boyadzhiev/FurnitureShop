@@ -1,6 +1,6 @@
 import { useParams, useNavigate, Route, Routes } from 'react-router-dom'
 import { useState, useEffect, useContext } from 'react'
-import * as furnitureService from '../../Services/furnitureService'
+// import * as furnitureService from '../../services/furnitureService'
 import { Link } from 'react-router-dom'
 import Create from '../Create/Create'
 import { FurnitureContext } from '../../contexts/FurnitureContext'

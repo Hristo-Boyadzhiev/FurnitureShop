@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function Logout() {
     const { onLogout } = useContext(authContext)
     const navigate = useNavigate()
-    
+
     useEffect(() => {
         onLogout()
         navigate('/')

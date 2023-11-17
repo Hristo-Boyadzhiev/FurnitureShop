@@ -9,13 +9,13 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Create from './components/Create/Create';
 import Details from './components/Details/Details';
-import * as furnitureService from './Services/furnitureService'
+// import * as furnitureService from './services/furnitureService'
+
 import { useNavigate } from 'react-router-dom';
-import { FurnitureContext } from './contexts/FurnitureContext';
-import * as authService from './Services/authService'
-import { authContext } from './contexts/authContext';
 import { useState } from 'react';
 import Logout from './components/Logout/Logout';
+import { FurnitureContext } from './contexts/FurnitureContext';
+import { authContext } from './contexts/authContext';
 
 function App() {
   const [auth, setAuth] = useState({})
@@ -62,7 +62,7 @@ function App() {
     }
   }
 
-  const onLogout = () =>{
+  const onLogout = () => {
     setAuth({})
   }
 
