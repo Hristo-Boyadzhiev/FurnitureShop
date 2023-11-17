@@ -15,6 +15,7 @@ import { FurnitureContext } from './contexts/FurnitureContext';
 import * as authService from './Services/authService'
 import { authContext } from './contexts/authContext';
 import { useState } from 'react';
+import Logout from './components/Logout/Logout';
 
 function App() {
   const [auth, setAuth] = useState({})
@@ -47,15 +48,22 @@ function App() {
     }
   }
 
-  const onRegisterSubmit = async (formValues)=>{
+  const onRegisterSubmit = async (formValues) => {
+    const { repeatPassword, ...registerData } = formValues
+    if (repeatPassword !== registerData.password) {
+      return alert('The password and repeat password must be equal')
+    }
     try {
       const registeredUser = await authService.register(formValues)
-      console.log(registeredUser)
       setAuth(registeredUser)
       navigate('/')
     } catch (error) {
       alert(error.message)
     }
+  }
+
+  const onLogout = () =>{
+    setAuth({})
   }
 
   const furnitureContext = {
@@ -66,6 +74,7 @@ function App() {
   const contextAuth = {
     onLoginSubmit,
     onRegisterSubmit,
+    onLogout,
     userId: auth._id,
     userEmail: auth.email,
     userToken: auth.accessToken,
@@ -82,6 +91,7 @@ function App() {
           <Route path='/catalog' element={<Catalog />} />
           <Route path='/contacts' element={<Contacts />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/logout' element={<Logout />} />
           <Route path='/register' element={<Register />} />
           <Route path='/create' element={<Create />} />
           <Route path='/catalog/:furnitureId/details/*' element={<Details />} />

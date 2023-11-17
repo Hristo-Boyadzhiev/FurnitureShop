@@ -32,7 +32,7 @@ export default function Header() {
 
                         {isAuthenticated && <>
                             <li><Link className="nav-link" to={"/create"}>Create</Link></li>
-                            <li><Link className="nav-link" to={"/contacts"}>Logout</Link></li>
+                            <li><Link className="nav-link" to={"/logout"}>Logout</Link></li>
                         </>}
                     </ul>
 
