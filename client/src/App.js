@@ -23,7 +23,7 @@ function App() {
 
   const onCreateSubmit = async (formValues) => {
     try {
-      await furnitureService.createFurniture(formValues)
+      await furnitureService.createFurniture(formValues, authContextValues.userToken)
       navigate('/catalog')
     } catch (error) {
       alert(error.message)
@@ -70,9 +70,8 @@ function App() {
       await authService.logout(authContextValues.userToken)
       setAuth({})
     } catch (error) {
-
+      alert(error.message)
     }
-
   }
 
   const furnitureContextValues = {

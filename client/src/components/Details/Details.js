@@ -12,7 +12,7 @@ export default function Contact() {
     const [showDetailsPage, setShowDetailsPage] = useState(true)
     const [showEditPage, setShowEditPage] = useState(false)
     const navigate = useNavigate()
-    const { isAuthenticated } = useContext(AuthContext)
+    const { isAuthenticated, userToken } = useContext(AuthContext)
 
     useEffect(() => {
         furnitureService.getFurniture(furnitureId)
@@ -26,7 +26,7 @@ export default function Contact() {
         event.preventDefault();
         const confirm = window.confirm('Are you sure you want to delete this offer?');
         if (confirm) {
-            furnitureService.deleteFurniture(furniture._id)
+            furnitureService.deleteFurniture(furniture._id, userToken)
                 .then(result => {
                     navigate('/catalog')
                 })
