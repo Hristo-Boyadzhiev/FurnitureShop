@@ -43,3 +43,13 @@ export async function register(registerData) {
 
     return result
 }
+
+export async function logout(userToken){
+    await fetch(`${baseUrl}/logout`, {
+        method: 'GET',
+        headers: {
+            'content-type': 'application/json',
+            'X-Authorization': userToken
+        }
+    })
+}

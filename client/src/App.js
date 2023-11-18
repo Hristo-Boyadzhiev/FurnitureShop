@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Logout from './components/Logout/Logout';
 import { FurnitureContext } from './contexts/FurnitureContext';
-import { AuthContext } from './contexts/AuthContext'; 
+import { AuthContext } from './contexts/AuthContext';
 
 function App() {
   const [auth, setAuth] = useState({})
@@ -65,8 +65,14 @@ function App() {
     }
   }
 
-  const onLogout = () => {
-    setAuth({})
+  const onLogout = async () => {
+    try {
+      await authService.logout(authContextValues.userToken)
+      setAuth({})
+    } catch (error) {
+
+    }
+
   }
 
   const furnitureContextValues = {
