@@ -17,12 +17,22 @@ export async function createFurniture(data, token) {
 
 export async function getFurnitures() {
     const response = await fetch(baseUrl)
+
+    if(response.status === 404){
+        return []
+    }
+
     const result = await response.json()
     return result
 }
 
 export async function getFurniture(furnitureId) {
     const response = await fetch(`${baseUrl}/${furnitureId}`)
+
+    if(response.status === 404){
+        return []
+    }
+
     const result = await response.json()
     return result
 }

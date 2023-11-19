@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 export default function Catalog() {
 	const [furnitures, setFurnitures] = useState([])
-
+	
 	useEffect(() => {
 		furnitureService.getFurnitures()
 			.then(currentFurnitures => {
