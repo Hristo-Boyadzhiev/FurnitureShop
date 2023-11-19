@@ -1,15 +1,26 @@
-import { useContext } from "react"
 import { useForm } from "../../hooks/useForm"
+import { useEffect, useContext } from "react"
+import * as furnitureService from "../../services/furnitureService"
+import { useParams } from "react-router-dom"
 import { FurnitureContext } from "../../contexts/FurnitureContext"
 
-export default function Create() {
-    const { onCreateSubmit } = useContext(FurnitureContext)
-    const { formValues, onChangeHandler, onSubmit } = useForm({
+export default function Edit() {
+    const { furnitureId } = useParams()
+    const { onEditSubmit } = useContext(FurnitureContext)
+    const { formValues, onChangeHandler, onSubmit, changeValues } = useForm({
+        _id: '',
         model: '',
         price: '',
         imageUrl: '',
         description: ''
-    }, onCreateSubmit)
+    }, onEditSubmit)
+
+    useEffect(() => {
+        furnitureService.getFurniture(furnitureId)
+            .then(furniture => {
+                changeValues(furniture)
+            })
+    }, [furnitureId])
 
     return (
         <div className="untree_co-section">

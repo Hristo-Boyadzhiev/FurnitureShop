@@ -16,6 +16,7 @@ import { useState } from 'react';
 import Logout from './components/Logout/Logout';
 import { FurnitureContext } from './contexts/FurnitureContext';
 import { AuthContext } from './contexts/AuthContext';
+import Edit from './components/Edit/Edit';
 
 function App() {
   const [auth, setAuth] = useState({})
@@ -30,14 +31,16 @@ function App() {
     }
   }
 
-  // const onEditSubmit = async (furnitureId, formValues) => {
-  //   try {
-  //     furnitureService.editurniture(furnitureId, formValues)
-  //     navigate(`/catalog`)
-  //   } catch (error) {
-  //     alert(error.message)
-  //   }
-  // }
+  const onEditSubmit = async (formValues) => {
+    const furnitureId = formValues._id
+    try {
+      console.log(authContextValues.userToken)
+      furnitureService.editFurniture(furnitureId, formValues, authContextValues.userToken)
+      navigate(`/catalog/${furnitureId}/details`)
+    } catch (error) {
+      alert(error.message)
+    }
+  }
 
   const onLoginSubmit = async (formValues) => {
     try {
@@ -76,7 +79,7 @@ function App() {
 
   const furnitureContextValues = {
     onCreateSubmit,
-    // onEditSubmit
+    onEditSubmit
   }
 
   const authContextValues = {
@@ -102,7 +105,8 @@ function App() {
           <Route path='/logout' element={<Logout />} />
           <Route path='/register' element={<Register />} />
           <Route path='/create' element={<Create />} />
-          <Route path='/catalog/:furnitureId/details/*' element={<Details />} />
+          <Route path='/catalog/:furnitureId/details/' element={<Details />} />
+          <Route path='/catalog/:furnitureId/details/edit' element={<Edit />} />
         </Routes>
       </FurnitureContext.Provider>
     </AuthContext.Provider>

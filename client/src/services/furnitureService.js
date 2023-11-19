@@ -49,11 +49,12 @@ export async function deleteFurniture(furnitureId, token) {
     return result
 }
 
-export async function editurniture(furnitureId, formValues) {
+export async function editFurniture(furnitureId, formValues, token) {
     const response = await fetch(`${baseUrl}/${furnitureId}`, {
         method: 'PUT',
         headers: {
-            'content-type': 'application/json'
+            'content-type': 'application/json',
+            'X-Authorization': token
         },
         body: JSON.stringify(formValues)
     })
