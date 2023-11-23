@@ -1,12 +1,12 @@
 import { useForm } from "../../hooks/useForm"
-import { useEffect, useContext } from "react"
+import { useEffect } from "react"
 import * as furnitureService from "../../services/furnitureService"
 import { useParams } from "react-router-dom"
-import { FurnitureContext } from "../../contexts/FurnitureContext"
+import { useFurnitureContext } from "../../contexts/FurnitureContext"
 
 export default function Edit() {
     const { furnitureId } = useParams()
-    const { onEditSubmit } = useContext(FurnitureContext)
+    const { onEditSubmit } = useFurnitureContext()
     const { formValues, onChangeHandler, onSubmit, changeValues } = useForm({
         _id: '',
         model: '',
@@ -20,7 +20,7 @@ export default function Edit() {
             .then(furniture => {
                 changeValues(furniture)
             })
-    }, [furnitureId])
+    }, [furnitureId, changeValues])
 
     return (
         <div className="untree_co-section">

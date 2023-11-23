@@ -1,9 +1,8 @@
-import { useContext } from "react"
 import { useForm } from "../../hooks/useForm"
-import { FurnitureContext } from "../../contexts/FurnitureContext"
+import { useFurnitureContext } from "../../contexts/FurnitureContext"
 
 export default function Create() {
-    const { onCreateSubmit } = useContext(FurnitureContext)
+    const { onCreateSubmit } = useFurnitureContext()
     const { formValues, onChangeHandler, onSubmit } = useForm({
         model: '',
         price: '',

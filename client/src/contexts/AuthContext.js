@@ -4,9 +4,9 @@ import * as authService from '../services/authService'
 
 const AuthContext = createContext()
 
-export const AuthProvider = ({
+export default function AuthProvider({
     children
-}) => {
+}){
     const [auth, setAuth] = useState({})
     const navigate = useNavigate()
 
