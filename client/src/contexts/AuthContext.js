@@ -1,13 +1,15 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import * as authService from '../services/authService'
+import useLocalStorage from "../hooks/useLocalStore";
 
 const AuthContext = createContext()
 
 export default function AuthProvider({
     children
 }){
-    const [auth, setAuth] = useState({})
+    const key = 'auth'
+    const [auth, setAuth] = useLocalStorage(key, {})
     const navigate = useNavigate()
 
     const onLoginSubmit = async (formValues) => {
@@ -38,8 +40,8 @@ export default function AuthProvider({
 
     const onLogout = async () => {
         try {
-            await authService.logout(authContextValues.userToken)
-            setAuth({})
+            await authService.logout(authContextValues.token)
+            setAuth(null)
         } catch (error) {
             alert(error.message)
         }
