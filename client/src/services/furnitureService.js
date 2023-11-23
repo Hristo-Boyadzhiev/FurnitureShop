@@ -1,5 +1,4 @@
 const baseUrl = 'http://localhost:3030/data/furnitures'
-console.log(baseUrl)
 
 export async function createFurniture(data, token) {
     const response = await fetch(baseUrl, {

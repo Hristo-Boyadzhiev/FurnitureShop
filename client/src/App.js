@@ -9,91 +9,44 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Create from './components/Create/Create';
 import Details from './components/Details/Details';
-import * as furnitureService from './services/furnitureService'
-import * as authService from './services/authService'
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
 import Logout from './components/Logout/Logout';
 import { FurnitureContext } from './contexts/FurnitureContext';
-import { AuthContext } from './contexts/AuthContext';
 import Edit from './components/Edit/Edit';
 
+import { AuthProvider } from './contexts/AuthContext';
+
 function App() {
-  const [auth, setAuth] = useState({})
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   const onCreateSubmit = async (formValues) => {
-    try {
-      await furnitureService.createFurniture(formValues, authContextValues.userToken)
-      navigate('/catalog')
-    } catch (error) {
-      alert(error.message)
-    }
+    // try {
+    //   await furnitureService.createFurniture(formValues, authContextValues.userToken)
+    //   navigate('/catalog')
+    // } catch (error) {
+    //   alert(error.message)
+    // }
   }
 
   const onEditSubmit = async (formValues) => {
-    const furnitureId = formValues._id
-    try {
-      console.log(authContextValues.userToken)
-      furnitureService.editFurniture(furnitureId, formValues, authContextValues.userToken)
-      navigate(`/catalog/${furnitureId}/details`)
-    } catch (error) {
-      alert(error.message)
-    }
+    // const furnitureId = formValues._id
+    // try {
+    //   console.log(authContextValues.userToken)
+    //   furnitureService.editFurniture(furnitureId, formValues, authContextValues.userToken)
+    //   navigate(`/catalog/${furnitureId}/details`)
+    // } catch (error) {
+    //   alert(error.message)
+    // }
   }
 
-  const onLoginSubmit = async (formValues) => {
-    try {
-      const loggedUser = await authService.login(formValues)
-      setAuth(loggedUser)
-      navigate('/')
-    } catch (error) {
-      alert(error.message)
-    }
-  }
-
-  const onRegisterSubmit = async (formValues) => {
-    const { repeatPassword, ...registerData } = formValues
-
-    if (repeatPassword !== registerData.password) {
-      return alert('The password and repeat password must be equal')
-    }
-
-    try {
-      const registeredUser = await authService.register(formValues)
-      setAuth(registeredUser)
-      navigate('/')
-    } catch (error) {
-      alert(error.message)
-    }
-  }
-
-  const onLogout = async () => {
-    try {
-      await authService.logout(authContextValues.userToken)
-      setAuth({})
-    } catch (error) {
-      alert(error.message)
-    }
-  }
 
   const furnitureContextValues = {
     onCreateSubmit,
     onEditSubmit
   }
 
-  const authContextValues = {
-    onLoginSubmit,
-    onRegisterSubmit,
-    onLogout,
-    userId: auth._id,
-    userEmail: auth.email,
-    userToken: auth.accessToken,
-    isAuthenticated: !!auth.accessToken
-  }
-
   return (
-    <AuthContext.Provider value={authContextValues}>
+    <AuthProvider>
       <FurnitureContext.Provider value={furnitureContextValues}>
         <Header />
 
@@ -109,7 +62,7 @@ function App() {
           <Route path='/catalog/:furnitureId/details/edit' element={<Edit />} />
         </Routes>
       </FurnitureContext.Provider>
-    </AuthContext.Provider>
+    </AuthProvider>
   );
 }
 

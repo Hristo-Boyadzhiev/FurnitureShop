@@ -1,14 +1,14 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import * as furnitureService from '../../services/furnitureService'
 import { Link } from 'react-router-dom'
-import { AuthContext } from '../../contexts/AuthContext'
+import { useAuthContext } from '../../contexts/AuthContext'
 
 export default function Contact() {
     const { furnitureId } = useParams()
     const [furniture, setFurniture] = useState('')
     const navigate = useNavigate()
-    const { isAuthenticated, userToken } = useContext(AuthContext)
+    const { isAuthenticated, token } = useAuthContext()
 
     useEffect(() => {
         furnitureService.getFurniture(furnitureId)
@@ -22,7 +22,7 @@ export default function Contact() {
         event.preventDefault();
         const confirm = window.confirm('Are you sure you want to delete this offer?');
         if (confirm) {
-            furnitureService.deleteFurniture(furniture._id, userToken)
+            furnitureService.deleteFurniture(furniture._id, token)
                 .then(result => {
                     navigate('/catalog')
                 })
