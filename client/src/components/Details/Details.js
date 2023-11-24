@@ -1,17 +1,18 @@
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useEffect, useReducer } from 'react'
 import * as furnitureService from '../../services/furnitureService'
 import * as commentService from '../../services/commentService'
 
 import { useAuthContext } from '../../contexts/AuthContext'
 import AddComment from './AddComment/AddComment'
 import Comment from './Comment/Comment'
+import furnitureReducer from '../../reducers/furnitureReducer'
 // import './Details.module.css'
 //взех го от https://www.bootdey.com/snippets/view/blog-item-comments
 
 export default function Details() {
     const { furnitureId } = useParams()
-    const [furniture, setFurniture] = useState('')
+    const [furniture, dispatch] = useReducer(furnitureReducer, '')
     const navigate = useNavigate()
     const { isAuthenticated, token, userId, email } = useAuthContext()
 
@@ -21,7 +22,11 @@ export default function Details() {
             commentService.getFurnitureComments(furnitureId)
         ])
             .then(([furnitureData, commentsData]) => {
-                setFurniture({ ...furnitureData, commentsData })
+                const furnitureState = { ...furnitureData, commentsData }
+                dispatch({
+                    type: 'FURNITURE_FETCH',
+                    payload: furnitureState
+                })
             })
     }, [furnitureId])
 
@@ -38,21 +43,15 @@ export default function Details() {
 
     const onAddCommentSubmit = async (formValues) => {
         try {
-               const newComment = await commentService.createComment(furnitureId, formValues, token)
-        setFurniture(state => ({...state,
-            commentsData: [...state.commentsData,
-            {
-                ...newComment,
-                author: {
-                    email
-                }
-            }
-            ]
-        })) 
+            const newComment = await commentService.createComment(furnitureId, formValues, token)
+            dispatch({
+                type: 'COMMENT_ADD',
+                payload: newComment,
+                email
+            })
         } catch (error) {
             alert(error.message)
         }
-    
     }
 
     const isOwner = userId === furniture._ownerId
