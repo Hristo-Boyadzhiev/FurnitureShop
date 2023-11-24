@@ -1,22 +1,29 @@
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import * as furnitureService from '../../services/furnitureService'
-import { Link } from 'react-router-dom'
-import { useAuthContext } from '../../contexts/AuthContext'
+import * as commentService from '../../services/commentService'
 
-export default function Contact() {
+import { useAuthContext } from '../../contexts/AuthContext'
+import AddComment from './AddComment/AddComment'
+import Comment from './Comment/Comment'
+// import './Details.module.css'
+//взех го от https://www.bootdey.com/snippets/view/blog-item-comments
+
+export default function Details() {
     const { furnitureId } = useParams()
     const [furniture, setFurniture] = useState('')
     const navigate = useNavigate()
-    const { isAuthenticated, token } = useAuthContext()
+    const { isAuthenticated, token, userId, email } = useAuthContext()
 
     useEffect(() => {
-        furnitureService.getFurniture(furnitureId)
-            .then(currentFurniture => {
-                setFurniture(currentFurniture)
+        Promise.all([
+            furnitureService.getFurniture(furnitureId),
+            commentService.getFurnitureComments(furnitureId)
+        ])
+            .then(([furnitureData, commentsData]) => {
+                setFurniture({ ...furnitureData, commentsData })
             })
     }, [furnitureId])
-
 
     const onDeleteClick = (event) => {
         event.preventDefault();
@@ -28,6 +35,33 @@ export default function Contact() {
                 })
         }
     }
+
+    const onAddCommentSubmit = async (formValues) => {
+        try {
+               const newComment = await commentService.createComment(furnitureId, formValues, token)
+        setFurniture(state => ({...state,
+            commentsData: [...state.commentsData,
+            {
+                ...newComment,
+                author: {
+                    email
+                }
+            }
+            ]
+        })) 
+        } catch (error) {
+            alert(error.message)
+        }
+    
+    }
+
+    const isOwner = userId === furniture._ownerId
+
+    const commentsList = furniture.commentsData?.map(x => <Comment
+        key={x._id}
+        comment={x.comment}
+        email={x.author.email}
+    />)
 
     return (
         <>
@@ -41,7 +75,7 @@ export default function Contact() {
                             <p>${furniture.price}</p>
                             <p>{furniture.description}</p>
 
-                            {isAuthenticated &&
+                            {isOwner &&
                                 <nav>
                                     <Link to={"edit"} className="btn btn-sm btn-outline-black">Edit</Link>
                                     <Link to={"delete"} className="btn btn-sm btn-outline-black" onClick={onDeleteClick}>Delete</Link>
@@ -52,6 +86,29 @@ export default function Contact() {
                                     <Link to={"/catalog"} className="btn btn-sm btn-outline-black">Back to catalog</Link>
                                 </div>
                             </div>
+
+                            <section className="content-item" id="comments">
+                                <div className="container">
+                                    <div className="row">
+                                        <div className="col-sm-8">
+
+                                            {isAuthenticated && <AddComment onAddCommentSubmit={onAddCommentSubmit} />}
+
+                                            <h3>Comments</h3>
+
+                                            {furniture.commentsData?.length === 0 && <p>No comments yet</p>}
+
+                                            {furniture.commentsData &&
+                                                <>
+                                                    {commentsList}
+                                                </>
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
                         </div>
                     </div>
                 </div>

@@ -20,7 +20,7 @@ export default function Edit() {
             .then(furniture => {
                 changeValues(furniture)
             })
-    }, [furnitureId, changeValues])
+    }, [furnitureId])
 
     return (
         <div className="untree_co-section">

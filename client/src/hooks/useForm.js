@@ -10,6 +10,7 @@ export const useForm = (initialValues, onSubmitHandler) => {
     const onSubmit = (event) => {
         event.preventDefault()
         onSubmitHandler(formValues)
+        setFormValues(initialValues)
     }
 
     const changeValues = (newValues)=>{

@@ -1,7 +1,7 @@
 const baseUrl = 'http://localhost:3030/data/furnitures'
 
 export async function createFurniture(data, token) {
-    const response = await fetch(baseUrl, {
+    const response = await fetch(`${baseUrl}`, {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
@@ -15,7 +15,7 @@ export async function createFurniture(data, token) {
 }
 
 export async function getFurnitures() {
-    const response = await fetch(baseUrl)
+    const response = await fetch(`${baseUrl}`)
 
     if(response.status === 404){
         return []
