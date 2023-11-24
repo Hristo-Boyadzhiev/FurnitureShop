@@ -30,6 +30,9 @@ export default function Details() {
             })
     }, [furnitureId])
 
+    //да махна onDeleteClick от тук - идея: да го сложа в furnitureContext и от там 
+    //през контекста да го достъпя тук
+
     const onDeleteClick = (event) => {
         event.preventDefault();
         const confirm = window.confirm('Are you sure you want to delete this offer?');
@@ -41,6 +44,8 @@ export default function Details() {
         }
     }
 
+    //да махна onAddCommentSubmit - идея: да направя commentContext и от да през 
+    //контекста да го достъпя тук
     const onAddCommentSubmit = async (formValues) => {
         try {
             const newComment = await commentService.createComment(furnitureId, formValues, token)

@@ -95,7 +95,7 @@ export default function Edit() {
 
                             </div>
 
-                            <button type="submit" className="btn btn-primary-hover-outline">Create</button>
+                            <button type="submit" className="btn btn-primary-hover-outline">Edit</button>
                         </form>
                     </div>
                 </div>
