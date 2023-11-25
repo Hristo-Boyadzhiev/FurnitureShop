@@ -28,7 +28,7 @@ export default function Edit() {
                     changeValues(furniture)
                 }
             })
-    }, [furnitureId])
+    }, [furnitureId, userId, navigate])
 
     return (
         <div className="untree_co-section">
