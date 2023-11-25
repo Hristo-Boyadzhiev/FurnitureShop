@@ -1,12 +1,15 @@
 import { useForm } from "../../hooks/useForm"
 import { useEffect } from "react"
 import * as furnitureService from "../../services/furnitureService"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useFurnitureContext } from "../../contexts/FurnitureContext"
+import { useAuthContext } from "../../contexts/AuthContext"
 
 export default function Edit() {
     const { furnitureId } = useParams()
     const { onEditSubmit } = useFurnitureContext()
+    const { userId } = useAuthContext()
+    const navigate = useNavigate()
     const { formValues, onChangeHandler, onSubmit, changeValues } = useForm({
         _id: '',
         model: '',
@@ -18,7 +21,12 @@ export default function Edit() {
     useEffect(() => {
         furnitureService.getFurniture(furnitureId)
             .then(furniture => {
-                changeValues(furniture)
+                const isOwner = userId === furniture._ownerId
+                if (!isOwner) {
+                    return navigate('/catalog')
+                } else {
+                    changeValues(furniture)
+                }
             })
     }, [furnitureId])
 
