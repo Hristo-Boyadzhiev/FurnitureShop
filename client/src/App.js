@@ -2,6 +2,7 @@
 import { Routes, Route } from 'react-router-dom'
 import AuthProvider from './contexts/AuthContext';
 import FurnitureProvider from './contexts/FurnitureContext';
+import AuthGuards from './components/Guards/AuthGuards';
 
 import Header from "./components/Header/Header";
 import Home from './components/Home/Home';
@@ -26,11 +27,14 @@ function App() {
           <Route path='/catalog' element={<Catalog />} />
           <Route path='/contacts' element={<Contacts />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/logout' element={<Logout />} />
           <Route path='/register' element={<Register />} />
-          <Route path='/create' element={<Create />} />
           <Route path='/catalog/:furnitureId/details/' element={<Details />} />
-          <Route path='/catalog/:furnitureId/details/edit' element={<Edit />} />
+
+          <Route element={<AuthGuards />}>
+            <Route path='/create' element={<Create />} />
+            <Route path='/catalog/:furnitureId/details/edit' element={<Edit />} />
+            <Route path='/logout' element={<Logout />} />
+          </Route>
         </Routes>
       </FurnitureProvider>
     </AuthProvider>
