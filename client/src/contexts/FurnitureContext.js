@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import * as furnitureService from '../services/furnitureService'
@@ -7,45 +7,61 @@ import { useAuthContext } from "./AuthContext";
 const FurnitureContext = createContext()
 
 export default function FurnitureProvider({
-    children
-}){
-    const {token} = useAuthContext()
-    const navigate=useNavigate()
+  children
+}) {
+  const [furnitures, setFurnitures] = useState([])
+  const { token } = useAuthContext()
+  const navigate = useNavigate()
 
-    const onCreateSubmit = async (formValues) => {
-        try {
-          await furnitureService.createFurniture(formValues, token)
-          navigate('/catalog')
-        } catch (error) {
-          alert(error.message)
-        }
-      }
+  useEffect(() => {
+    furnitureService.getFurnitures()
+      .then(currentFurnitures => {
+        setFurnitures(currentFurnitures)
+      })
+  }, [])
 
-      const onEditSubmit = async (formValues) => {
-        const furnitureId = formValues._id
-        try {
-          furnitureService.editFurniture(furnitureId, formValues, token)
-          navigate(`/catalog/${furnitureId}/details`)
-        } catch (error) {
-          alert(error.message)
-        }
-      }
+  const onCreateSubmit = async (formValues) => {
+    try {
+      const newFurniture = await furnitureService.createFurniture(formValues, token)
+      setFurnitures(state => [...state, newFurniture])
+      navigate('/catalog')
+    } catch (error) {
+      alert(error.message)
+    }
+  }
 
-      const furnitureContextValues = {
-        onCreateSubmit,
-        onEditSubmit
-      }
+  const onEditSubmit = async (formValues) => {
+    const furnitureId = formValues._id
+    try {
+      const EditedFurniture = await furnitureService.editFurniture(furnitureId, formValues, token)
+      setFurnitures(state => state.map(furniture => furniture._id === formValues._id ? EditedFurniture : furniture))
+      navigate(`/catalog/${furnitureId}/details`)
+    } catch (error) {
+      alert(error.message)
+    }
+  }
 
-    return (
-        <FurnitureContext.Provider value={furnitureContextValues}>
-            {children}
-        </FurnitureContext.Provider>
-    )
+  const getFurniture = (furnitureId) => {
+    return furnitures.find(furniture => furniture._id === furnitureId)
+  }
+
+  const furnitureContextValues = {
+    furnitures,
+    onCreateSubmit,
+    onEditSubmit,
+    getFurniture
+  }
+
+  return (
+    <FurnitureContext.Provider value={furnitureContextValues}>
+      {children}
+    </FurnitureContext.Provider>
+  )
 }
 
-export const useFurnitureContext = () =>{
-    const context = useContext(FurnitureContext)
-    return context
+export const useFurnitureContext = () => {
+  const context = useContext(FurnitureContext)
+  return context
 }
 
 
