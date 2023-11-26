@@ -45,11 +45,16 @@ export default function FurnitureProvider({
     return furnitures.find(furniture => furniture._id === furnitureId)
   }
 
+  const deleteFurniture = (furnitureId) => {
+    return setFurnitures(state => state.filter(furniture => furniture._id !== furnitureId))
+  }
+
   const furnitureContextValues = {
     furnitures,
     onCreateSubmit,
     onEditSubmit,
-    getFurniture
+    getFurniture,
+    deleteFurniture
   }
 
   return (
