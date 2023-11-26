@@ -1,13 +1,22 @@
 import { useForm } from "../../hooks/useForm"
 import { useAuthContext } from "../../contexts/AuthContext"
+import { useNavigate } from "react-router-dom"
+import { useEffect } from "react"
 
 export default function Login() {
-    const { onLoginSubmit } = useAuthContext()
+    const { onLoginSubmit, isAuthenticated } = useAuthContext()
     
     const { formValues, onChangeHandler, onSubmit } = useForm({
         email: '',
         password: ''
     }, onLoginSubmit)
+    const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(isAuthenticated){
+        return navigate('/')
+    }
+  }, [isAuthenticated, navigate])
 
     return (
         <div className="untree_co-section">
