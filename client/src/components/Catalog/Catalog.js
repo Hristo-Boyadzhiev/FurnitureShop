@@ -1,6 +1,7 @@
 import { useFurnitureContext } from '../../contexts/FurnitureContext'
-import CatalogItem from './CatalogItem'
+import CatalogItem from './CatalogItem/CatalogItem'
 import { Link } from 'react-router-dom'
+import styles from './Catalog.module.css'
 
 export default function Catalog() {
 	const { furnitures } = useFurnitureContext()
@@ -8,28 +9,16 @@ export default function Catalog() {
 	const furnituresList = furnitures.map(furniture => <CatalogItem key={furniture._id} furniture={furniture} />)
 
 	return (
+<div className={styles["wrapper"]}>
+			{furnituresList}
 
-		<div className="untree_co-section product-section before-footer-section">
-			<div className="container">
-				<div className="row">
-
-					{furnituresList}
-
-					{furnitures.length === 0 &&
-						<div className="untree_co-section">
-							<div className="container">
-								<div className="row">
-									<div className="col-md-12 text-center pt-5">
-										<h2 className="display-3 text-black">No articles yet</h2>
-										<p><Link to={"/"} className="btn btn-sm btn-outline-black">Home</Link></p>
-									</div>
-								</div>
-							</div>
-						</div>
-					}
-
-				</div>
-			</div>
+			{furnituresList.length === 0 &&
+				<>
+					<div className={styles["no-context"]}>
+						<p className={styles["no-context-text"]}>No furnitures yet</p>
+						<Link to={"/"} className={`${styles["button"]} ${styles["button1"]}`}>Home</Link>
+					</div>
+				</>}
 		</div>
 	)
 }

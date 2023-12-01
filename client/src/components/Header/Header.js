@@ -1,46 +1,29 @@
 import { Link } from 'react-router-dom'
 import { useAuthContext } from '../../contexts/AuthContext'
+import styles from './Header.module.css'
 
 export default function Header() {
     const { isAuthenticated } = useAuthContext()
 
     return (
-        <nav className="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+        <nav id={styles["nav-1"]}>
+            <Link className={styles["link-1"]} to={"/"}>Home</Link>
+            <Link className={styles["link-1"]} to={"/catalog"}>Catalog</Link>
+            <Link className={styles["link-1"]} to={"/services"}>Services</Link>
+            <Link className={styles["link-1"]} to={"/blog"}>Blog</Link>
+            <Link className={styles["link-1"]} to={"/about"}>About us</Link>
+            <Link className={styles["link-1"]} to={"/contact"}>Contact us</Link>
 
-            <div className="container">
-                <Link className="navbar-brand" to={"/"}>Furni<span>.</span></Link>
+            {!isAuthenticated && <>
+                <Link className={styles["link-1"]} to={"/login"}>Login</Link>
+                <Link className={styles["link-1"]} to={"/register"}>Register</Link>
+            </>}
 
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-
-                <div className="collapse navbar-collapse" id="navbarsFurni">
-                    <ul className="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                        <li className="nav-item"> <Link className="nav-link" to={"/"}>Home</Link></li>
-                        <li><Link className="nav-link" to={"/catalog"}>Catalog</Link></li>
-                        <li><Link className="nav-link" to={"/services"}>Services</Link></li>
-                        <li><Link className="nav-link" to={"/blog"}>Blog</Link></li>
-                        <li><Link className="nav-link" to={"/about"}>About us</Link></li>
-                        <li><Link className="nav-link" to={"/contacts"}>Contact us</Link></li>
-
-                        {!isAuthenticated && <>
-                            <li><Link className="nav-link" to={"/login"}>Login</Link></li>
-                            <li><Link className="nav-link" to={"/register"}>Register</Link></li>
-                        </>}
-
-                        {isAuthenticated && <>
-                            <li><Link className="nav-link" to={"/create"}>Create</Link></li>
-                            <li><Link className="nav-link" to={"/logout"}>Logout</Link></li>
-                        </>}
-                    </ul>
-
-                    <ul className="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-                        {/* <li><Link className="nav-link" to={"/dada"}><img src="images/user.svg" alt='' /></Link></li> */}
-                        <li><Link className="nav-link" to={"cart.html"}><img src="images/cart.svg" alt='' /></Link></li>
-                    </ul>
-                </div>
-            </div>
-
+            {isAuthenticated && <>
+                <Link className={styles["link-1"]} to={"/create"}>Create</Link>
+                <Link className={styles["link-1"]} to={"/logout"}>Logout</Link>
+                <Link className={styles["link-1"]} to={"/basket"}>Basket</Link>
+            </>}
         </nav>
     )
 }

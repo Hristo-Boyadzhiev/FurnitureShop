@@ -4,6 +4,7 @@ import * as furnitureService from "../../services/furnitureService"
 import { useParams, useNavigate } from "react-router-dom"
 import { useFurnitureContext } from "../../contexts/FurnitureContext"
 import { useAuthContext } from "../../contexts/AuthContext"
+import styles from './Edit.module.css'
 
 export default function Edit() {
     const { furnitureId } = useParams()
@@ -31,84 +32,52 @@ export default function Edit() {
     }, [furnitureId, userId, navigate])
 
     return (
-        <div className="untree_co-section">
-            <div className="container">
+        <div className={styles["create-container"]}>
+        <form className={styles["form-container"]} method="POST" onSubmit={onSubmit}>
+            <div className={styles["headline"]}><span>Create Furniture</span></div>
+            <div className={styles["form-line"]}>
+                <label className={styles["top"]} htmlFor='model'>Model</label>
+                <input
+                    type="text"
+                    name='model'
+                    className={styles["form-input"]}
+                    value={formValues.model}
+                    onChange={onChangeHandler}
+                />
+            </div>
+            <div className={styles["form-line"]}>
+                <label className={styles["top"]} htmlFor="price">Price</label>
+                <input
+                    type="text"
+                    name="price"
+                    className={styles["form-input"]}
+                    value={formValues.price}
+                    onChange={onChangeHandler}
+                />
+            </div>
+            <div className={styles["form-line"]}>
+                <label className={styles["top"]} htmlFor="imageUrl">ImageUrl</label>
+                <input
+                    type="text"
+                    name="imageUrl"
+                    className={styles["form-input"]}
+                    value={formValues.imageUrl}
+                    onChange={onChangeHandler}
+                />
 
-                <div className="row justify-content-center">
-                    <div className="col-md-15 col-lg-8 pb-4">
-                        <form method="POST" onSubmit={onSubmit}>
-                            <div className="row">
-                                <div className="col-6">
-                                    <div className="form-group">
-                                        <label className="text-black" htmlFor="model">Model</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            name="model"
-                                            id="model"
-                                            value={formValues.model}
-                                            onChange={onChangeHandler}
-                                        />
-                                    </div>
-                                </div>
+            </div>
+            <div className={styles["form-line"]}>
+                <label className={styles["top"]} htmlFor="description">Description</label>
+                <textarea
+                    name="description"
+                    className={styles["form-input"]}
+                    value={formValues.description}
+                    onChange={onChangeHandler}
+                ></textarea>
+            </div>
 
-                                <div>
-                                    <div className="col-6">
-                                        <div className="form-group">
-                                            <label className="text-black" htmlFor="price">Price</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                name="price"
-                                                id="price"
-                                                value={formValues.price}
-                                                onChange={onChangeHandler}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div className="col-6">
-                                        <div className="form-group">
-                                            <label className="text-black" htmlFor="imageUrl">Image</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                name="imageUrl"
-                                                id="imageUrl"
-                                                value={formValues.imageUrl}
-                                                onChange={onChangeHandler}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div className="col-6">
-                                        <div className="form-group">
-                                            <label className="text-black" htmlFor="description">Description</label>
-                                            <textarea
-                                                name="description"
-                                                id="description"
-                                                className="form-control"
-                                                cols="30"
-                                                rows="10"
-                                                value={formValues.description}
-                                                onChange={onChangeHandler}
-                                            ></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <button type="submit" className="btn btn-primary-hover-outline">Edit</button>
-                        </form>
-                    </div>
-                </div>
-            </div >
-
-        </div >
+            <input type="submit" className={styles["form-button"]} value="Submit" />
+        </form>
+    </div>
     )
 }

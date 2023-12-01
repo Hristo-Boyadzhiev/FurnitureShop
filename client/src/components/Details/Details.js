@@ -8,8 +8,7 @@ import AddComment from './AddComment/AddComment'
 import Comment from './Comment/Comment'
 import furnitureReducer from '../../reducers/furnitureReducer'
 import { useFurnitureContext } from '../../contexts/FurnitureContext'
-// import './Details.module.css'
-//взех го от https://www.bootdey.com/snippets/view/blog-item-comments
+import styles from './Details.module.css'
 
 export default function Details() {
     const { furnitureId } = useParams()
@@ -69,56 +68,55 @@ export default function Details() {
         />)
 
         return (
-            <>
-                <div className="untree_co-section">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-12 text-center pt-5">
+            <div className={`${styles["wrapper"]} ${styles["clearfix"]}`}>
+            <div className={styles["left"]}>
+                <div className={styles["div-image"]}>
+                    <img src={furniture.imageUrl} className={styles["image-setup"]} alt={furniture.model} />
+                </div>
 
-                                <img src={furniture.imageUrl} alt={furniture.model} />
-                                <p>{furniture.model}</p>
-                                <p>${furniture.price}</p>
-                                <p>{furniture.description}</p>
+            </div>
+            <div className={styles["right"]}>
+
+                <div className={styles["inner"]}>
+                    <section>
+                        <h1 className={styles["setup-h1"]}>Product Details</h1>
+                        <p><em>Model: {furniture.model}</em></p>
+                        <p><em>Price: {furniture.price}€</em></p>
+                        <p><em>Description: {furniture.description}</em></p>
+                    </section>
+                    <section>
+                        <span className={styles["skill-set"]}>
+                            <div className={styles["skill-set-div"]}>
+                                <span className={styles["skill-set-span"]}><Link to={"/proba"} className={`${styles["button"]} ${styles["button1"]}`}>Buy</Link></span>
+                                <span className={styles["skill-set-span"]}><Link to={`/catalog/`} className={`${styles["button"]} ${styles["button1"]}`}>Back</Link></span>
 
                                 {isOwner &&
-                                    <nav>
-                                        <Link to={"edit"} className="btn btn-sm btn-outline-black">Edit</Link>
-                                        {/* <Link to={"delete"} className="btn btn-sm btn-outline-black" onClick={onDeleteClick}>Delete</Link> */}
-                                    <button className="btn btn-sm btn-outline-black" onClick={onDeleteClick}>Delete</button>
-                                    </nav>}
-
-                                <div>
-                                    <div>
-                                        <Link to={"/catalog"} className="btn btn-sm btn-outline-black">Back to catalog</Link>
-                                    </div>
-                                </div>
-
-                                <section className="content-item" id="comments">
-                                    <div className="container">
-                                        <div className="row">
-                                            <div className="col-sm-8">
-
-                                                {isAuthenticated && <AddComment onAddCommentSubmit={onAddCommentSubmit} />}
-
-                                                <h3>Comments</h3>
-
-                                                {furniture.commentsData?.length === 0 && <p>No comments yet</p>}
-
-                                                {furniture.commentsData &&
-                                                    <>
-                                                        {commentsList}
-                                                    </>
-                                                }
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-
+                                    <>
+                                        <span className={styles["skill-set-span"]}><Link to={`/catalog/${furnitureId}/details/edit`} className={`${styles["button"]} ${styles["button1"]}`}>Edit</Link></span>
+                                        <span className={styles["skill-set-span"]}><button className={`${styles["button"]} ${styles["button1"]}`} onClick={onDeleteClick}>Delete</button></span>
+                                    </>
+                                }
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </>
+                        </span>
+                    </section>
+                    <section>
+                        <h1 className={styles["setup-h1"]}>Comments</h1>
+
+                        {furniture.commentsData?.length === 0 &&
+                            <p className={styles["setup-h1"]}><em>No comments yet</em></p>
+                        }
+
+                        {furniture.commentsData &&
+                            <>
+                                {commentsList}
+                            </>
+                        }
+
+                        {isAuthenticated && <AddComment onAddCommentSubmit={onAddCommentSubmit} />}
+
+                    </section >
+                </div >
+            </div >
+        </div >
         )
     }

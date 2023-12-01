@@ -1,4 +1,5 @@
 import { useForm } from "../../../hooks/useForm"
+import styles from './AddComment.module.css'
 
 export default function AddComment({
     onAddCommentSubmit
@@ -8,23 +9,24 @@ export default function AddComment({
     }, onAddCommentSubmit)
 
     return (
-        <form onSubmit={onSubmit}>
-            <h3 className="pull-left">New Comment</h3>
-            <button type="submit" className="btn btn-normal pull-right">Submit</button>
-            <fieldset>
-                <div className="row">
-                    <div className="form-group col-xs-12 col-sm-9 col-lg-10">
-                        <textarea
-                            className="form-control"
-                            id="message"
-                            name="comment"
-                            placeholder="Your comment"
-                            value={formValues.comment}
-                            onChange={onChangeHandler}
-                        ></textarea>
-                    </div>
+        <form className={styles["form-block"]} method="POST" onSubmit={onSubmit}>
+        <div className={styles["row"]}>
+
+            <div className={styles["col-xs-12"]}>
+                <div className={styles["form-group"]}>
+                    <textarea
+                        className={styles["form-input"]}
+                        name="comment"
+                        placeholder="Your comment"
+                        value={formValues.comment}
+                        onChange={onChangeHandler}
+                    ></textarea>
                 </div>
-            </fieldset>
-        </form>
+            </div>
+            <div className={styles["skill-set-div"]}>
+                <span className={styles["skill-set-span"]}><button type="submit" className={`${styles["button"]} ${styles["button1"]}`}>Add Comment</button></span>
+            </div>
+        </div>
+    </form>
     )
 }
