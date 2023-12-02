@@ -1,7 +1,9 @@
-// import './App.css';
 import { Routes, Route } from 'react-router-dom'
+
 import AuthProvider from './contexts/AuthContext';
 import FurnitureProvider from './contexts/FurnitureContext';
+import PurchaseProvider from './contexts/PurchaseContext';
+
 import AuthGuards from './components/Guards/AuthGuards';
 
 import Header from "./components/Header/Header";
@@ -14,15 +16,19 @@ import Create from './components/Create/Create';
 import Details from './components/Details/Details';
 import Logout from './components/Logout/Logout';
 import Edit from './components/Edit/Edit';
+import Basket from './components/Basket/Basket';
+import ComplatedOrder from './components/ComplatedOrder/ComplatedOrder';
+import NotFound from './components/NotFound/NotFound';
 
 function App() {
 
   return (
     <AuthProvider>
       <FurnitureProvider>
+        <PurchaseProvider>
         <Header />
 
-        <Routes>
+        <Routes> 
           <Route path='/' element={<Home />} />
           <Route path='/catalog' element={<Catalog />} />
           <Route path='/contacts' element={<Contacts />} />
@@ -30,12 +36,17 @@ function App() {
           <Route path='/register' element={<Register />} />
           <Route path='/catalog/:furnitureId/details/' element={<Details />} />
 
+
           <Route element={<AuthGuards />}>
             <Route path='/create' element={<Create />} />
             <Route path='/catalog/:furnitureId/details/edit' element={<Edit />} />
             <Route path='/logout' element={<Logout />} />
-          </Route>
+            <Route path='/basket' element={<Basket />} />
+            <Route path='/completed-order' element={<ComplatedOrder />} />
+            <Route path='*' element={<NotFound />} />
+          </Route> 
         </Routes>
+        </PurchaseProvider>
       </FurnitureProvider>
     </AuthProvider>
   );

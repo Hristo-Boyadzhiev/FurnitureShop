@@ -9,13 +9,16 @@ import Comment from './Comment/Comment'
 import furnitureReducer from '../../reducers/furnitureReducer'
 import { useFurnitureContext } from '../../contexts/FurnitureContext'
 import styles from './Details.module.css'
+import { usePurchaseContext } from '../../contexts/PurchaseContext'
+
 
 export default function Details() {
     const { furnitureId } = useParams()
     const [furniture, dispatch] = useReducer(furnitureReducer, '')
     const navigate = useNavigate()
     const { isAuthenticated, token, userId, email } = useAuthContext()
-    const {deleteFurniture} = useFurnitureContext()
+    const { deleteFurniture } = useFurnitureContext()
+    const { onBuyClick } = usePurchaseContext()
 
     useEffect(() => {
         Promise.all([
@@ -46,29 +49,32 @@ export default function Details() {
         }
     }
 
-        const onAddCommentSubmit = async (formValues) => {
-            try {
-                const newComment = await commentService.createComment(furnitureId, formValues, token)
-                dispatch({
-                    type: 'COMMENT_ADD',
-                    payload: newComment,
-                    email
-                })
-            } catch (error) {
-                alert(error.message)
-            }
+    const onAddCommentSubmit = async (formValues) => {
+        try {
+            const newComment = await commentService.createComment(furnitureId, formValues, token)
+            dispatch({
+                type: 'COMMENT_ADD',
+                payload: newComment,
+                email
+            })
+        } catch (error) {
+            alert(error.message)
         }
+    }
 
-        const isOwner = userId === furniture._ownerId
 
-        const commentsList = furniture.commentsData?.map(x => <Comment
-            key={x._id}
-            comment={x.comment}
-            email={x.author.email}
-        />)
 
-        return (
-            <div className={`${styles["wrapper"]} ${styles["clearfix"]}`}>
+    const isOwner = userId === furniture._ownerId
+
+    const commentsList = furniture.commentsData?.map(x => <Comment
+        key={x._id}
+        comment={x.comment}
+        email={x.author.email}
+    />)
+
+    return (
+
+        <div className={`${styles["wrapper"]} ${styles["clearfix"]}`}>
             <div className={styles["left"]}>
                 <div className={styles["div-image"]}>
                     <img src={furniture.imageUrl} className={styles["image-setup"]} alt={furniture.model} />
@@ -81,13 +87,17 @@ export default function Details() {
                     <section>
                         <h1 className={styles["setup-h1"]}>Product Details</h1>
                         <p><em>Model: {furniture.model}</em></p>
-                        <p><em>Price: {furniture.price}€</em></p>
+                        <p><em>Price: {furniture.price}£</em></p>
                         <p><em>Description: {furniture.description}</em></p>
                     </section>
                     <section>
                         <span className={styles["skill-set"]}>
                             <div className={styles["skill-set-div"]}>
-                                <span className={styles["skill-set-span"]}><Link to={"/proba"} className={`${styles["button"]} ${styles["button1"]}`}>Buy</Link></span>
+                            {isAuthenticated && !isOwner &&
+                            <span className={styles["skill-set-span"]}><button className={`${styles["button"]} ${styles["button1"]}`} onClick={()=>onBuyClick(furniture)}>Buy</button></span>
+                            }
+
+                                {/* <span className={styles["skill-set-span"]}><button className={`${styles["button"]} ${styles["button1"]}`} onClick={()=>onBuyClick(furniture)}>Buy</button></span> */}
                                 <span className={styles["skill-set-span"]}><Link to={`/catalog/`} className={`${styles["button"]} ${styles["button1"]}`}>Back</Link></span>
 
                                 {isOwner &&
@@ -118,5 +128,5 @@ export default function Details() {
                 </div >
             </div >
         </div >
-        )
-    }
+    )
+}
