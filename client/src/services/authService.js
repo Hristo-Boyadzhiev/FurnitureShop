@@ -1,55 +1,21 @@
-const baseUrl = 'http://localhost:3030/users'
+import * as api from './api.js'
 
-export async function login(loginData) {
-    const response = await fetch(`${baseUrl}/login`, {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(loginData)
-    })
-
-    if (response.status === 204) {
-        return {}
-    }
-
-    const result = await response.json()
-
-    if (!response.ok) {
-        throw result
-    }
-
-    return result
+let endpoints = {
+    login: '/users/login',
+    register: '/users/register',
+    logout: '/users/logout'
 }
 
-export async function register(registerData) {
-    const response = await fetch(`${baseUrl}/register`, {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(registerData)
-    })
-
-    if (response.status === 204) {
-        return {}
-    }
-
-    const result = await response.json()
-
-    if (!response.ok) {
-        throw result
-    }
-
-    return result
+export async function login(formValues) {
+    const user = await api.post(endpoints.login, formValues)
+    return user
 }
 
-export async function logout(userToken){
-    await fetch(`${baseUrl}/logout`, {
-        method: 'GET',
-        headers: {
-            'content-type': 'application/json',
-            'X-Authorization': userToken
-        }
-    })
+export async function register(formValues) {
+    const user = await api.post(endpoints.register, formValues)
+    return user
+}
+
+export async function logout() {
+   return await api.get(endpoints.logout)
 }

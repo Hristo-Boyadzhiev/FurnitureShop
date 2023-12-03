@@ -1,46 +1,30 @@
-const baseUrl = 'http://localhost:3030/data/purchases'
+import * as api from './api.js'
 
-export async function createPurchase(userId, furniture, token) {
+let endpoints = {
+    createPurchase: '/data/purchases',
+    getPurchases: userId => getPurchasesEndpoint(userId),
+    deletePurchase: purchaseId => `/data/purchases/${purchaseId}`
+}
 
+export function createPurchase(userId, furniture) {
     const data = {
         furniture,
         userId
     }
-
-    const response = await fetch(`${baseUrl}`, {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json',
-            'X-Authorization': token
-        },
-        body: JSON.stringify(data)
-    })
-
-    const result = response.json()
-    return result
+    return api.post(endpoints.createPurchase, data)
 }
 
-export async function getPurchases(userId) {
+export function getPurchases(userId) {
+    return api.get(endpoints.getPurchases(userId))
+}
+
+function getPurchasesEndpoint(userId){
     const searchQuery = encodeURIComponent(`userId="${userId}"`)
-
-    const response = await fetch(`${baseUrl}?where=${searchQuery}`)
-  
-    if(response.status === 404){
-        return []
-    }
-
-    const result = await response.json()
-    return Object.values(result)
+    return `/data/purchases?where=${searchQuery}`
 }
 
-export async function deletePurchase(purchaseId, token) {
-    const response = await fetch(`${baseUrl}/${purchaseId}`, {
-        method: 'DELETE',
-        headers: {
-            'content-type': 'application/json',
-            'X-Authorization': token
-        }
-    })
-    const result = await response.json()
-    return result
+export function deletePurchase(purchaseId) {
+    return api.delete(endpoints.deletePurchase(purchaseId))
 }
+
+

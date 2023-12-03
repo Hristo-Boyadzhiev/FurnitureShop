@@ -1,29 +1,29 @@
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useEffect, useReducer } from 'react'
-import * as furnitureService from '../../services/furnitureService'
-import * as commentService from '../../services/commentService'
+import { getFurniture, deleteFurniture } from '../../services/furnitureService'
+import { createComment, getComments } from '../../services/commentService'
 
 import { useAuthContext } from '../../contexts/AuthContext'
+import { useFurnitureContext } from '../../contexts/FurnitureContext'
+import { usePurchaseContext } from '../../contexts/PurchaseContext'
+
 import AddComment from './AddComment/AddComment'
 import Comment from './Comment/Comment'
 import furnitureReducer from '../../reducers/furnitureReducer'
-import { useFurnitureContext } from '../../contexts/FurnitureContext'
 import styles from './Details.module.css'
-import { usePurchaseContext } from '../../contexts/PurchaseContext'
-
 
 export default function Details() {
     const { furnitureId } = useParams()
     const [furniture, dispatch] = useReducer(furnitureReducer, '')
     const navigate = useNavigate()
-    const { isAuthenticated, token, userId, email } = useAuthContext()
-    const { deleteFurniture } = useFurnitureContext()
+    const { isAuthenticated, userId, email } = useAuthContext()
+    const { deleteFurnitureInState } = useFurnitureContext()
     const { onBuyClick } = usePurchaseContext()
 
     useEffect(() => {
         Promise.all([
-            furnitureService.getFurniture(furnitureId),
-            commentService.getFurnitureComments(furnitureId)
+            getFurniture(furnitureId),
+            getComments(furnitureId)
         ])
             .then(([furnitureData, commentsData]) => {
                 const furnitureState = { ...furnitureData, commentsData }
@@ -40,8 +40,8 @@ export default function Details() {
         const confirm = window.confirm(`Are you sure you want to delete ${furniture.model}?`);
         if (confirm) {
             try {
-                await furnitureService.deleteFurniture(furnitureId, token)
-                deleteFurniture(furnitureId)
+                await deleteFurniture(furnitureId)
+                deleteFurnitureInState(furnitureId)
                 navigate('/catalog')
             } catch (error) {
                 alert(error.message)
@@ -51,7 +51,7 @@ export default function Details() {
 
     const onAddCommentSubmit = async (formValues) => {
         try {
-            const newComment = await commentService.createComment(furnitureId, formValues, token)
+            const newComment = await createComment(furnitureId, formValues)
             dispatch({
                 type: 'COMMENT_ADD',
                 payload: newComment,
@@ -61,8 +61,6 @@ export default function Details() {
             alert(error.message)
         }
     }
-
-
 
     const isOwner = userId === furniture._ownerId
 
@@ -96,8 +94,6 @@ export default function Details() {
                             {isAuthenticated && !isOwner &&
                             <span className={styles["skill-set-span"]}><button className={`${styles["button"]} ${styles["button1"]}`} onClick={()=>onBuyClick(furniture)}>Buy</button></span>
                             }
-
-                                {/* <span className={styles["skill-set-span"]}><button className={`${styles["button"]} ${styles["button1"]}`} onClick={()=>onBuyClick(furniture)}>Buy</button></span> */}
                                 <span className={styles["skill-set-span"]}><Link to={`/catalog/`} className={`${styles["button"]} ${styles["button1"]}`}>Back</Link></span>
 
                                 {isOwner &&

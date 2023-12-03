@@ -1,8 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-import * as furnitureService from '../services/furnitureService'
-import { useAuthContext } from "./AuthContext";
+import { createFurniture, getFurnitures, editFurniture } from "../services/furnitureService";
 
 const FurnitureContext = createContext()
 
@@ -10,11 +8,10 @@ export default function FurnitureProvider({
   children
 }) {
   const [furnitures, setFurnitures] = useState([])
-  const { token } = useAuthContext()
   const navigate = useNavigate()
 
   useEffect(() => {
-    furnitureService.getFurnitures()
+      getFurnitures()
       .then(currentFurnitures => {
         setFurnitures(currentFurnitures)
       })
@@ -22,7 +19,7 @@ export default function FurnitureProvider({
 
   const onCreateSubmit = async (formValues) => {
     try {
-      const newFurniture = await furnitureService.createFurniture(formValues, token)
+       const newFurniture = await createFurniture(formValues)
       setFurnitures(state => [...state, newFurniture])
       navigate('/catalog')
     } catch (error) {
@@ -33,7 +30,7 @@ export default function FurnitureProvider({
   const onEditSubmit = async (formValues) => {
     const furnitureId = formValues._id
     try {
-      const EditedFurniture = await furnitureService.editFurniture(furnitureId, formValues, token)
+      const EditedFurniture = await editFurniture(furnitureId, formValues)
       setFurnitures(state => state.map(furniture => furniture._id === formValues._id ? EditedFurniture : furniture))
       navigate(`/catalog/${furnitureId}/details`)
     } catch (error) {
@@ -41,11 +38,11 @@ export default function FurnitureProvider({
     }
   }
 
-  const getFurniture = (furnitureId) => {
+  const getFurnitureInState = (furnitureId) => {
     return furnitures.find(furniture => furniture._id === furnitureId)
   }
 
-  const deleteFurniture = (furnitureId) => {
+  const deleteFurnitureInState = (furnitureId) => {
     return setFurnitures(state => state.filter(furniture => furniture._id !== furnitureId))
   }
 
@@ -53,8 +50,8 @@ export default function FurnitureProvider({
     furnitures,
     onCreateSubmit,
     onEditSubmit,
-    getFurniture,
-    deleteFurniture
+    getFurnitureInState,
+    deleteFurnitureInState
   }
 
   return (

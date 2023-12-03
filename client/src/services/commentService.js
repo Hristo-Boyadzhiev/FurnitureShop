@@ -1,32 +1,24 @@
-const baseUrl = 'http://localhost:3030/data/comments'
+import * as api from './api.js'
 
-export async function createComment (furnitureId, formValues, token){
+let endpoints = {
+    createComment: '/data/comments',
+    getComments: furnitureId => getCommentsEndpoint(furnitureId)
+}
 
+export function createComment(furnitureId, formValues) {
     const data = {
         comment: formValues.comment,
         furnitureId
     }
-
-    const response = await fetch(`${baseUrl}`, {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json',
-            'X-Authorization': token
-        },
-        body: JSON.stringify(data)
-    })
-
-    const result = response.json()
-    return result
+    return api.post(endpoints.createComment, data)
 }
 
+export function getComments(furnitureId) {
+    return api.get(endpoints.getComments(furnitureId))
+}
 
-export async function getFurnitureComments (furnitureId){
+function getCommentsEndpoint (furnitureId){
     const searchQuery = encodeURIComponent(`furnitureId="${furnitureId}"`)
     const relationQuery = encodeURIComponent(`author=_ownerId:users`)
-
-    const response = await fetch(`${baseUrl}?where=${searchQuery}&load=${relationQuery}`)
-        const result = await response.json()
-        return Object.values(result)
-    
+    return `/data/comments?where=${searchQuery}&load=${relationQuery}`
 }

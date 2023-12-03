@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import * as purchaseService from '../services/purchaseService'
 import { useAuthContext } from "./AuthContext";
+import { createPurchase, getPurchases, deletePurchase } from "../services/purchaseService";
 
 const PurchaseContext = createContext()
 
@@ -8,10 +8,10 @@ export default function PurchaseProvider({
     children
 }) {
     const [purchases, setPurchases] = useState([])
-    const { userId, token } = useAuthContext()
+    const { userId } = useAuthContext()
 
     useEffect(() => {
-        purchaseService.getPurchases(userId)
+        getPurchases(userId)
             .then(currentPurchases => {
                 setPurchases(currentPurchases)
             })
@@ -19,7 +19,7 @@ export default function PurchaseProvider({
 
     const onBuyClick = async (furniture) => {
         try {
-            const newPurchase = await purchaseService.createPurchase(userId, furniture, token)
+            const newPurchase = await createPurchase(userId, furniture)
             setPurchases(state => [...state, newPurchase])
         } catch (error) {
             alert(error.message)
@@ -30,7 +30,7 @@ export default function PurchaseProvider({
         const confirm = window.confirm(`Are you sure you want to delete ${purchase.furniture.model}?`);
         if (confirm) {
             try {
-                await purchaseService.deletePurchase(purchase._id, token)
+                await deletePurchase(purchase._id)
                 setPurchases(state => state.filter(x => x._id !== purchase._id))
             } catch (error) {
                 alert(error.message)
@@ -41,7 +41,7 @@ export default function PurchaseProvider({
     const onConfirmClick = async () => {
         try {
             purchases.forEach(purchase => {
-                purchaseService.deletePurchase(purchase._id, token)
+                deletePurchase(purchase._id)
                 .catch(error=>{
                     alert(error.message) 
                 })
