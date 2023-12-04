@@ -1,23 +1,31 @@
 import { useForm } from "../../hooks/useForm"
+import { useValidation } from "../../hooks/useValidation"
 import { useAuthContext } from "../../contexts/AuthContext"
 import { useEffect } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import styles from './Register.module.css'
 
 export default function Register() {
-    const {onRegisterSubmit, isAuthenticated} = useAuthContext()
-    const {formValues, onChangeHandler, onSubmit} = useForm({
+    const navigate = useNavigate()
+    const { onRegisterSubmit, isAuthenticated } = useAuthContext()
+
+    const { formValues, onChangeHandler, onSubmit } = useForm({
         email: '',
         password: '',
         repeatPassword: ''
     }, onRegisterSubmit)
-    const navigate = useNavigate()
 
-    useEffect(()=>{
-        if(isAuthenticated){
+    const { formErrors, onValidateHandler } = useValidation({
+        email: '',
+        password: '',
+        repeatPassword: ''
+    })
+
+    useEffect(() => {
+        if (isAuthenticated) {
             return navigate('/')
         }
-      }, [isAuthenticated, navigate])
+    }, [isAuthenticated, navigate])
 
     return (
         <>
@@ -36,7 +44,13 @@ export default function Register() {
                                 className={`${styles['input-line']} ${styles['full-width']}`}
                                 value={formValues.email}
                                 onChange={onChangeHandler}
+                                onBlur={onValidateHandler}
                             />
+                              {formErrors.email &&
+                                <p className={styles["form-error"]}>
+                                    {formErrors.email}
+                                </p>
+                            }
                             <input
                                 type='password'
                                 name='password'
@@ -44,7 +58,13 @@ export default function Register() {
                                 className={`${styles['input-line']} ${styles['full-width']}`}
                                 value={formValues.password}
                                 onChange={onChangeHandler}
+                                onBlur={onValidateHandler}
                             />
+                              {formErrors.password &&
+                                <p className={styles["form-error"]}>
+                                    {formErrors.password}
+                                </p>
+                            }
                             <input
                                 type='password'
                                 name='repeatPassword'
@@ -52,7 +72,13 @@ export default function Register() {
                                 className={`${styles['input-line']} ${styles['full-width']}`}
                                 value={formValues.repeatPassword}
                                 onChange={onChangeHandler}
+                                onBlur={onValidateHandler}
                             />
+                              {formErrors.repeatPassword &&
+                                <p className={styles["form-error"]}>
+                                    {formErrors.repeatPassword}
+                                </p>
+                            }
                         </div>
                         <div className={styles['spacing']}>Already registered? <Link className='highlight' to={"/login"}>Login</Link></div>
                         <div><button className={`${styles['ghost-round']} ${styles['full-width']}`}>Create Account</button></div>

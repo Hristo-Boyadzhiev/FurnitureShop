@@ -3,21 +3,27 @@ import { useAuthContext } from "../../contexts/AuthContext"
 import { useNavigate, Link } from "react-router-dom"
 import { useEffect } from "react"
 import styles from './Login.module.css'
+import { useValidation } from "../../hooks/useValidation"
 
 export default function Login() {
+    const navigate = useNavigate()
     const { onLoginSubmit, isAuthenticated } = useAuthContext()
-    
+
     const { formValues, onChangeHandler, onSubmit } = useForm({
         email: '',
         password: ''
     }, onLoginSubmit)
-    const navigate = useNavigate()
 
-  useEffect(()=>{
-    if(isAuthenticated){
-        return navigate('/')
-    }
-  }, [isAuthenticated, navigate])
+    const { formErrors, onValidateHandler } = useValidation({
+        email: '',
+        password: ''
+    })
+    
+    useEffect(() => {
+        if (isAuthenticated) {
+            return navigate('/')
+        }
+    }, [isAuthenticated, navigate])
 
     return (
         <>
@@ -36,7 +42,13 @@ export default function Login() {
                                 className={`${styles['input-line']} ${styles['full-width']}`}
                                 value={formValues.email}
                                 onChange={onChangeHandler}
+                                onBlur={onValidateHandler}
                             />
+                            {formErrors.email &&
+                                <p className={styles["form-error"]}>
+                                    {formErrors.email}
+                                </p>
+                            }
                             <input
                                 type='password'
                                 name='password'
@@ -44,7 +56,13 @@ export default function Login() {
                                 className={`${styles['input-line']} ${styles['full-width']}`}
                                 value={formValues.password}
                                 onChange={onChangeHandler}
+                                onBlur={onValidateHandler}
                             />
+                            {formErrors.password &&
+                                <p className={styles["form-error"]}>
+                                    {formErrors.password}
+                                </p>
+                            }
                         </div>
                         <div className={styles['spacing']}>If you don't have profile click <Link className='highlight' to={"/register"}>here</Link></div>
                         <div><button className={`${styles['ghost-round']} ${styles['full-width']}`}>Login</button></div>
