@@ -9,7 +9,7 @@ import styles from './Edit.module.css'
 export default function Edit() {
     const { furnitureId } = useParams()
     const { onEditSubmit } = useFurnitureContext()
-    const { userId } = useAuthContext()
+    const { userId, setAuthOnError403 } = useAuthContext()
     const navigate = useNavigate()
     const { formValues, onChangeHandler, onSubmit, changeValues } = useForm({
         _id: '',
@@ -29,7 +29,14 @@ export default function Edit() {
                     changeValues(furniture)
                 }
             })
-    }, [furnitureId, userId, navigate])
+            .catch(error=>{
+                if (error.message === 'Invalid access token') {
+                    setAuthOnError403()
+                } else {
+                    alert(error.message)
+                }
+            })
+    }, [furnitureId, userId, navigate, setAuthOnError403])
 
     return (
         <>

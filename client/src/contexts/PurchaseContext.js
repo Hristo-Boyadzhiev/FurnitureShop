@@ -8,21 +8,32 @@ export default function PurchaseProvider({
     children
 }) {
     const [purchases, setPurchases] = useState([])
-    const { userId } = useAuthContext()
+    const { userId, setAuthOnError403 } = useAuthContext()
 
     useEffect(() => {
         getPurchases(userId)
             .then(currentPurchases => {
                 setPurchases(currentPurchases)
             })
-    }, [userId])
+            .catch(error => {
+                if (error.message === 'Invalid access token') {
+                    setAuthOnError403()
+                  } else {
+                    alert(error.message)
+                  }
+            })
+    }, [userId, setAuthOnError403])
 
     const onBuyClick = async (furniture) => {
         try {
             const newPurchase = await createPurchase(userId, furniture)
             setPurchases(state => [...state, newPurchase])
         } catch (error) {
-            alert(error.message)
+            if (error.message === 'Invalid access token') {
+                setAuthOnError403()
+            } else {
+                alert(error.message)
+            }
         }
     }
 
@@ -33,23 +44,28 @@ export default function PurchaseProvider({
                 await deletePurchase(purchase._id)
                 setPurchases(state => state.filter(x => x._id !== purchase._id))
             } catch (error) {
-                alert(error.message)
+                if (error.message === 'Invalid access token') {
+                    setAuthOnError403()
+                } else {
+                    alert(error.message)
+                }
             }
         }
     }
 
     const onConfirmClick = async () => {
-        try {
-            purchases.forEach(purchase => {
-                deletePurchase(purchase._id)
-                .catch(error=>{
-                    alert(error.message) 
+        purchases.forEach(purchase => {
+            deletePurchase(purchase._id)
+                .catch(error => {
+                    if (error.message === 'Invalid access token') {
+                        setAuthOnError403()
+                    } else {
+                        alert(error.message)
+                    }
                 })
-            });
-            setPurchases([])
-        } catch (error) {
-            alert(error.message)
-        }
+        });
+
+        setPurchases([])
     }
 
 

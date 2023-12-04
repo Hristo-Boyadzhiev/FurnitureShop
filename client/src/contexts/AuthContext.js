@@ -7,7 +7,7 @@ const AuthContext = createContext()
 
 export default function AuthProvider({
     children
-}){
+}) {
     const key = 'auth'
     const [auth, setAuth] = useLocalStorage(key, {})
     const navigate = useNavigate()
@@ -18,7 +18,11 @@ export default function AuthProvider({
             setAuth(loggedUser)
             navigate('/')
         } catch (error) {
-            alert(error.message)
+            if (error.message === 'Invalid access token') {
+                setAuth(null)
+            } else {
+                alert(error.message)
+            }
         }
     }
 
@@ -34,23 +38,36 @@ export default function AuthProvider({
             setAuth(registeredUser)
             navigate('/')
         } catch (error) {
-            alert(error.message)
+            if (error.message === 'Invalid access token') {
+                setAuth(null)
+            } else {
+                alert(error.message)
+            }
         }
     }
 
     const onLogout = async () => {
         try {
-           await logout()
+            await logout()
             setAuth(null)
         } catch (error) {
-            alert(error.message)
+            if (error.message === 'Invalid access token') {
+                setAuth(null)
+            } else {
+                alert(error.message)
+            }
         }
+    }
+
+    const setAuthOnError403 = () => {
+        setAuth(null)
     }
 
     const authContextValues = {
         onLoginSubmit,
         onRegisterSubmit,
         onLogout,
+        setAuthOnError403,
         userId: auth._id,
         email: auth.email,
         token: auth.accessToken,
@@ -68,3 +85,4 @@ export const useAuthContext = () => {
     const context = useContext(AuthContext)
     return context
 }
+

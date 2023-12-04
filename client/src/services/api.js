@@ -29,13 +29,9 @@ async function request(method, url, data) {
         let response = await fetch(host + url, options)
 
         if (response.ok !== true) {
+
             if (response.status === 404) {
                 return []
-            }
-
-
-            if (response.status === 403) {
-                localStorage.removeItem('auth')
             }
 
             let error = await response.json()

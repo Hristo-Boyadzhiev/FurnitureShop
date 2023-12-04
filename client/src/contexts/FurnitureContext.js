@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { createFurniture, getFurnitures, editFurniture } from "../services/furnitureService";
+import { useAuthContext } from "./AuthContext";
 
 const FurnitureContext = createContext()
 
@@ -9,21 +10,33 @@ export default function FurnitureProvider({
 }) {
   const [furnitures, setFurnitures] = useState([])
   const navigate = useNavigate()
+  const { setAuthOnError403 } = useAuthContext()
 
   useEffect(() => {
-      getFurnitures()
+    getFurnitures()
       .then(currentFurnitures => {
         setFurnitures(currentFurnitures)
       })
-  }, [])
+      .catch(error => {
+        if (error.message === 'Invalid access token') {
+          setAuthOnError403()
+        } else {
+          alert(error.message)
+        }
+      })
+  }, [setAuthOnError403])
 
   const onCreateSubmit = async (formValues) => {
     try {
-       const newFurniture = await createFurniture(formValues)
+      const newFurniture = await createFurniture(formValues)
       setFurnitures(state => [...state, newFurniture])
       navigate('/catalog')
     } catch (error) {
-      alert(error.message)
+      if (error.message === 'Invalid access token') {
+        setAuthOnError403()
+      } else {
+        alert(error.message)
+      }
     }
   }
 
@@ -34,7 +47,11 @@ export default function FurnitureProvider({
       setFurnitures(state => state.map(furniture => furniture._id === formValues._id ? EditedFurniture : furniture))
       navigate(`/catalog/${furnitureId}/details`)
     } catch (error) {
-      alert(error.message)
+      if (error.message === 'Invalid access token') {
+        setAuthOnError403()
+      } else {
+        alert(error.message)
+      }
     }
   }
 

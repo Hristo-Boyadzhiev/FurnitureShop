@@ -16,7 +16,7 @@ export default function Details() {
     const { furnitureId } = useParams()
     const [furniture, dispatch] = useReducer(furnitureReducer, '')
     const navigate = useNavigate()
-    const { isAuthenticated, userId, email } = useAuthContext()
+    const { isAuthenticated, userId, email, setAuthOnError403 } = useAuthContext()
     const { deleteFurnitureInState } = useFurnitureContext()
     const { onBuyClick } = usePurchaseContext()
 
@@ -32,7 +32,14 @@ export default function Details() {
                     payload: furnitureState
                 })
             })
-    }, [furnitureId])
+            .catch(error=>{
+            if (error.message === 'Invalid access token') {
+                setAuthOnError403()
+            } else {
+                alert(error.message)
+            }
+        })
+    }, [furnitureId, setAuthOnError403])
 
     const onDeleteClick = async () => {
         //Ако имам време да не го правя с confirm, а да излиза модал, 
@@ -44,7 +51,11 @@ export default function Details() {
                 deleteFurnitureInState(furnitureId)
                 navigate('/catalog')
             } catch (error) {
-                alert(error.message)
+                if (error.message === 'Invalid access token') {
+                    setAuthOnError403()
+                  } else {
+                    alert(error.message)
+                  }
             }
         }
     }
@@ -58,7 +69,11 @@ export default function Details() {
                 email
             })
         } catch (error) {
-            alert(error.message)
+            if (error.message === 'Invalid access token') {
+                setAuthOnError403()
+              } else {
+                alert(error.message)
+              }
         }
     }
 
@@ -91,9 +106,9 @@ export default function Details() {
                     <section>
                         <span className={styles["skill-set"]}>
                             <div className={styles["skill-set-div"]}>
-                            {isAuthenticated && !isOwner &&
-                            <span className={styles["skill-set-span"]}><button className={`${styles["button"]} ${styles["button1"]}`} onClick={()=>onBuyClick(furniture)}>Buy</button></span>
-                            }
+                                {isAuthenticated && !isOwner &&
+                                    <span className={styles["skill-set-span"]}><button className={`${styles["button"]} ${styles["button1"]}`} onClick={() => onBuyClick(furniture)}>Buy</button></span>
+                                }
                                 <span className={styles["skill-set-span"]}><Link to={`/catalog/`} className={`${styles["button"]} ${styles["button1"]}`}>Back</Link></span>
 
                                 {isOwner &&
