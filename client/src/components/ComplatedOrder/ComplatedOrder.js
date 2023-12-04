@@ -8,8 +8,8 @@ export default function ComplatedOrder() {
         navigate('/catalog')
     }, 2000);
     return (
-<>
-<span className={styles["completed-text"]}> YOUR PURCHASE IS COMPLETED!</span>
-</>   
+        <>
+            <span className={styles["completed-text"]}> YOUR PURCHASE IS COMPLETED!</span>
+        </>
     )
 }

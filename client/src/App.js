@@ -19,6 +19,7 @@ import Edit from './components/Edit/Edit';
 import Basket from './components/Basket/Basket';
 import ComplatedOrder from './components/ComplatedOrder/ComplatedOrder';
 import NotFound from './components/NotFound/NotFound';
+import Purchases from './components/Purchases/Purchases';
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
             <Route path='/logout' element={<Logout />} />
             <Route path='/basket' element={<Basket />} />
             <Route path='/completed-order' element={<ComplatedOrder />} />
+            <Route path='/purchases' element={<Purchases />} />
             <Route path='*' element={<NotFound />} />
           </Route> 
         </Routes>

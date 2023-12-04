@@ -2,11 +2,22 @@
 import { usePurchaseContext } from '../../contexts/PurchaseContext'
 import styles from './Basket.module.css'
 import BasketItem from './BasketItem/BasketItem'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useAuthContext } from '../../contexts/AuthContext'
 
 export default function Basket() {
-    const { purchases, onConfirmClick } = usePurchaseContext()
+    const navigate = useNavigate()
+    const { userPurchases, onConfirmClick } = usePurchaseContext()
+    const {isAdmin} = useAuthContext()
+
+    useEffect(()=>{
+          if(isAdmin){
+            navigate('/')
+        }
+    }, [isAdmin, navigate])
  
+
     // const [currentPurchases, setCurrentPurchases] = useState([])
     // console.log(purchases)
 
@@ -25,12 +36,18 @@ export default function Basket() {
     }
 
 
-    const basketList = purchases?.map(x => <BasketItem
+
+
+
+
+    const basketList = userPurchases?.map(x => <BasketItem
         key={x._id}
         purchase={x}
         furniture={x.furniture}
         calculatePrices={calculatePrices}
     />)
+
+    
 
     return (
         <>

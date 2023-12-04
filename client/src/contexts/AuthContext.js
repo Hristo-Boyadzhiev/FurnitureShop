@@ -71,7 +71,8 @@ export default function AuthProvider({
         userId: auth._id,
         email: auth.email,
         token: auth.accessToken,
-        isAuthenticated: !!auth.accessToken
+        isAuthenticated: !!auth.accessToken,
+        isAdmin: auth.email === 'hristo@abv.bg'
     }
 
     return (

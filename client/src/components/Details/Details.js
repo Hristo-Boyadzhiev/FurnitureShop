@@ -100,7 +100,7 @@ export default function Details() {
                     <section>
                         <h1 className={styles["setup-h1"]}>Product Details</h1>
                         <p><em>Model: {furniture.model}</em></p>
-                        <p><em>Price: {furniture.price}£</em></p>
+                        <p><em>Price: {furniture.price}€</em></p>
                         <p><em>Description: {furniture.description}</em></p>
                     </section>
                     <section>

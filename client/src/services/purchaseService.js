@@ -2,23 +2,29 @@ import * as api from './api.js'
 
 let endpoints = {
     createPurchase: '/data/purchases',
-    getPurchases: userId => getPurchasesEndpoint(userId),
+    getAllUsersPurchases: '/data/purchases',
+    getUserPurchases: userId => getUserPurchasesEndpoint(userId),
     deletePurchase: purchaseId => `/data/purchases/${purchaseId}`
 }
 
-export function createPurchase(userId, furniture) {
+export function createPurchase(userId, userEmail, furniture) {
     const data = {
         furniture,
-        userId
+        userId,
+        userEmail
     }
     return api.post(endpoints.createPurchase, data)
 }
 
-export function getPurchases(userId) {
-    return api.get(endpoints.getPurchases(userId))
+export function getAllUsersPurchases(){
+    return api.get(endpoints.getAllUsersPurchases)
 }
 
-function getPurchasesEndpoint(userId){
+export function getUserPurchases(userId) {
+    return api.get(endpoints.getUserPurchases(userId))
+}
+
+function getUserPurchasesEndpoint(userId){
     const searchQuery = encodeURIComponent(`userId="${userId}"`)
     return `/data/purchases?where=${searchQuery}`
 }
