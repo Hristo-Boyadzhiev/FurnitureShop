@@ -2,13 +2,14 @@ import styles from './BasketItem.module.css'
 import { useForm } from '../../../hooks/useForm'
 // import { useEffect } from 'react'
 import { usePurchaseContext } from '../../../contexts/PurchaseContext'
+import { Link } from 'react-router-dom'
 
 export default function BasketItem({
     furniture,
     purchase,
     // calculatePrices
 }) {
-    const {onDeleteClick} = usePurchaseContext()
+    const { onDeletePurchaseClick } = usePurchaseContext()
     const { formValues, onChangeHandler } = useForm({
         quantity: 1
     })
@@ -17,7 +18,7 @@ export default function BasketItem({
     //     calculatePrices(furniture._id, formValues.quantity)
     // }, [formValues.quantity])
 
-  
+
 
 
     const totalProduct = Number(formValues.quantity) * furniture.price
@@ -50,8 +51,13 @@ export default function BasketItem({
                 />
             </div>
             <div className={styles["subtotal"]}>{totalProduct}</div>
-            <div className={styles["remove"]}>
-                <button onClick={()=>onDeleteClick(purchase)}>Remove</button>
+            {/* <div className={styles["remove"]}>
+                <button><Link to={`/catalog/${furniture._id}/details`}>Product Details</Link></button>
+                <button onClick={() => onDeleteUserClick(purchase)}>Remove</button>
+            </div> */}
+             <div className={styles["remove"]}>
+               <Link to={`/catalog/${furniture._id}/details`} className={`${styles["button"]} ${styles["button1"]}`}>Product Details</Link>
+                <button onClick={() => onDeletePurchaseClick(purchase)} className={`${styles["button"]} ${styles["button1"]}`}>Remove</button>
             </div>
         </div>
     )

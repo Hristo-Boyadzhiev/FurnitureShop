@@ -50,7 +50,7 @@ export default function PurchaseProvider({
         }
     }
 
-    const onDeleteUserClick = async (purchase) => {
+    const onDeletePurchaseClick = async (purchase) => {
         const confirm = window.confirm(`Are you sure you want to delete ${purchase.furniture.model}?`);
         if (confirm) {
             try {
@@ -88,7 +88,7 @@ export default function PurchaseProvider({
         userPurchases,
         getUserPurchasesFunction,
         onBuyClick,
-        onDeleteUserClick,
+        onDeletePurchaseClick,
         onConfirmClick
     }
 
