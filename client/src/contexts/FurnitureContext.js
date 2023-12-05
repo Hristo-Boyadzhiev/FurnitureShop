@@ -1,6 +1,6 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createFurniture, getFurnitures, editFurniture } from "../services/furnitureService";
+import { createFurniture, getFurnitures, editFurniture, deleteFurniture } from "../services/furnitureService";
 import { useAuthContext } from "./AuthContext";
 
 const FurnitureContext = createContext()
@@ -28,18 +28,16 @@ export default function FurnitureProvider({
 
   const getFurnituresFunction = async () => {
     try {
-        const currentFurnitures = await getFurnitures()
-        setFurnitures(currentFurnitures)
+      const currentFurnitures = await getFurnitures()
+      setFurnitures(currentFurnitures)
     } catch (error) {
-        if (error.message === 'Invalid access token') {
-            setAuthOnError403()
-        } else {
-            alert(error.message)
-        }
+      if (error.message === 'Invalid access token') {
+        setAuthOnError403()
+      } else {
+        alert(error.message)
+      }
     }
-}
-
-
+  }
 
   const onCreateSubmit = async (formValues) => {
     try {
@@ -70,12 +68,29 @@ export default function FurnitureProvider({
     }
   }
 
-  const getFurnitureInState = (furnitureId) => {
-    return furnitures.find(furniture => furniture._id === furnitureId)
+
+  const onDeleteClick = async (furniture) => {
+    const furnitureId = furniture._id
+    //Ако имам време да не го правя с confirm, а да излиза модал, 
+    //както го правихме преди няколко лекции
+    const confirm = window.confirm(`Are you sure you want to delete ${furniture.model}?`);
+    if (confirm) {
+      try {
+        await deleteFurniture(furnitureId)
+        setFurnitures(state=>state.filter(furniture=> furniture._id !== furnitureId))
+        navigate('/catalog')
+      } catch (error) {
+        if (error.message === 'Invalid access token') {
+          setAuthOnError403()
+        } else {
+          alert(error.message)
+        }
+      }
+    }
   }
 
-  const deleteFurnitureInState = (furnitureId) => {
-    return setFurnitures(state => state.filter(furniture => furniture._id !== furnitureId))
+  const getFurnitureInState = (furnitureId) => {
+    return furnitures.find(furniture => furniture._id === furnitureId)
   }
 
   const furnitureContextValues = {
@@ -83,8 +98,8 @@ export default function FurnitureProvider({
     getFurnituresFunction,
     onCreateSubmit,
     onEditSubmit,
+    onDeleteClick,
     getFurnitureInState,
-    deleteFurnitureInState
   }
 
   return (

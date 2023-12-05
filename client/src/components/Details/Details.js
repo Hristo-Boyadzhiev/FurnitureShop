@@ -1,6 +1,6 @@
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useEffect, useReducer } from 'react'
-import { getFurniture, deleteFurniture } from '../../services/furnitureService'
+import { getFurniture } from '../../services/furnitureService'
 import { createComment, getComments } from '../../services/commentService'
 
 import { useAuthContext } from '../../contexts/AuthContext'
@@ -15,9 +15,8 @@ import styles from './Details.module.css'
 export default function Details() {
     const { furnitureId } = useParams()
     const [furniture, dispatch] = useReducer(furnitureReducer, '')
-    const navigate = useNavigate()
     const { isAuthenticated, userId, email, setAuthOnError403 } = useAuthContext()
-    const { deleteFurnitureInState } = useFurnitureContext()
+    const { onDeleteClick } = useFurnitureContext()
     const { onBuyClick } = usePurchaseContext()
 
     useEffect(() => {
@@ -40,25 +39,6 @@ export default function Details() {
             }
         })
     }, [furnitureId, setAuthOnError403])
-
-    const onDeleteClick = async () => {
-        //Ако имам време да не го правя с confirm, а да излиза модал, 
-        //както го правихме преди няколко лекции
-        const confirm = window.confirm(`Are you sure you want to delete ${furniture.model}?`);
-        if (confirm) {
-            try {
-                await deleteFurniture(furnitureId)
-                deleteFurnitureInState(furnitureId)
-                navigate('/catalog')
-            } catch (error) {
-                if (error.message === 'Invalid access token') {
-                    setAuthOnError403()
-                  } else {
-                    alert(error.message)
-                  }
-            }
-        }
-    }
 
     const onAddCommentSubmit = async (formValues) => {
         try {
@@ -114,7 +94,7 @@ export default function Details() {
                                 {isOwner &&
                                     <>
                                         <span className={styles["skill-set-span"]}><Link to={`/catalog/${furnitureId}/details/edit`} className={`${styles["button"]} ${styles["button1"]}`}>Edit</Link></span>
-                                        <span className={styles["skill-set-span"]}><button className={`${styles["button"]} ${styles["button1"]}`} onClick={onDeleteClick}>Delete</button></span>
+                                        <span className={styles["skill-set-span"]}><button className={`${styles["button"]} ${styles["button1"]}`} onClick={()=>onDeleteClick(furniture)}>Delete</button></span>
                                     </>
                                 }
                             </div>
