@@ -45,6 +45,19 @@ export const useValidation = (initialValues) => {
         } else {
             setFormErrors(state => ({ ...state, description: '' }))
         }
+
+        if (event.target.name === 'name' && event.target.value.length < 2) {
+            setFormErrors(state => ({ ...state, name: 'The name must be minimum 2 characters long' }))
+        } else {
+            setFormErrors(state => ({ ...state, name: '' }))
+        }
+
+        if (event.target.name === 'message' && event.target.value.length < 5) {
+            setFormErrors(state => ({ ...state, message: 'The message must be minimum 5 characters long' }))
+        } else {
+            setFormErrors(state => ({ ...state, message: '' }))
+        }
+
     }
 
     return {

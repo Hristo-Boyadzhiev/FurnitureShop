@@ -11,12 +11,20 @@ export default function Header() {
             <Link className={styles["link-1"]} to={"/catalog"}>Catalog</Link>
             {/* <Link className={styles["link-1"]} to={"/blog"}>Blog</Link> */}
             {/* <Link className={styles["link-1"]} to={"/about"}>About us</Link> */}
-            <Link className={styles["link-1"]} to={"/contact"}>Contact us</Link>
+            {/* <Link className={styles["link-1"]} to={"/contacts"}>Contact us</Link> */}
 
             {!isAuthenticated &&
                 <>
                     <Link className={styles["link-1"]} to={"/login"}>Login</Link>
                     <Link className={styles["link-1"]} to={"/register"}>Register</Link>
+                </>}
+
+
+            {isAuthenticated && !isAdmin &&
+                <>
+                    {/* <Link className={styles["link-1"]} to={"/create"}>Create</Link> */}
+                    <Link className={styles["link-1"]} to={"/contacts"}>Contact us</Link>
+                    <Link className={styles["link-1"]} to={"/basket"}>Basket</Link>
                 </>}
 
             {isAuthenticated &&
@@ -26,15 +34,10 @@ export default function Header() {
                     {/* <Link className={styles["link-1"]} to={"/basket"}>Basket</Link> */}
                 </>}
 
-            {isAuthenticated && !isAdmin &&
-                <>
-                    {/* <Link className={styles["link-1"]} to={"/create"}>Create</Link> */}
-                    <Link className={styles["link-1"]} to={"/basket"}>Basket</Link>
-                </>}
-
             {isAdmin &&
                 <>
                     <Link className={styles["link-1"]} to={"/create"}>Create</Link>
+                    <Link className={styles["link-1"]} to={"/messages"}>Messages</Link>
                     <Link className={styles["link-1"]} to={"/purchases"}>Purchases</Link>
                 </>
             }

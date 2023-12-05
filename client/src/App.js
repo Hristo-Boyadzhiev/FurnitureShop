@@ -20,6 +20,7 @@ import Basket from './components/Basket/Basket';
 import ComplatedOrder from './components/ComplatedOrder/ComplatedOrder';
 import NotFound from './components/NotFound/NotFound';
 import Purchases from './components/Purchases/Purchases';
+import AdminMessages from './components/AdminMessages/AdminMessages';
 
 function App() {
 
@@ -45,6 +46,7 @@ function App() {
             <Route path='/basket' element={<Basket />} />
             <Route path='/completed-order' element={<ComplatedOrder />} />
             <Route path='/purchases' element={<Purchases />} />
+            <Route path='/messages' element={<AdminMessages />} />
             <Route path='*' element={<NotFound />} />
           </Route> 
         </Routes>
