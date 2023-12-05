@@ -12,19 +12,34 @@ export default function FurnitureProvider({
   const navigate = useNavigate()
   const { setAuthOnError403 } = useAuthContext()
 
-  useEffect(() => {
-    getFurnitures()
-      .then(currentFurnitures => {
+  // useEffect(() => {
+  //   getFurnitures()
+  //     .then(currentFurnitures => {
+  //       setFurnitures(currentFurnitures)
+  //     })
+  //     .catch(error => {
+  //       if (error.message === 'Invalid access token') {
+  //         setAuthOnError403()
+  //     } else {
+  //         alert(error.message)
+  //     }
+  //     })
+  // }, [setAuthOnError403])
+
+  const getFurnituresFunction = async () => {
+    try {
+        const currentFurnitures = await getFurnitures()
         setFurnitures(currentFurnitures)
-      })
-      .catch(error => {
+    } catch (error) {
         if (error.message === 'Invalid access token') {
-          setAuthOnError403()
+            setAuthOnError403()
         } else {
-          alert(error.message)
+            alert(error.message)
         }
-      })
-  }, [setAuthOnError403])
+    }
+}
+
+
 
   const onCreateSubmit = async (formValues) => {
     try {
@@ -65,6 +80,7 @@ export default function FurnitureProvider({
 
   const furnitureContextValues = {
     furnitures,
+    getFurnituresFunction,
     onCreateSubmit,
     onEditSubmit,
     getFurnitureInState,

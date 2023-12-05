@@ -3,6 +3,7 @@ import { getAllUsersPurchases } from '../../services/purchaseService'
 import { useEffect, useState } from 'react'
 import { useAuthContext } from '../../contexts/AuthContext'
 import PurchasesItem from './PurchasesItem/PurchasesItem'
+import { Link } from 'react-router-dom'
 
 export default function Purchases() {
     const { setAuthOnError403 } = useAuthContext()
@@ -30,18 +31,30 @@ export default function Purchases() {
 
     return (
         <>
-            <h1 className={styles["title"]}>All Purchases</h1>
+            {allPurchasesList.length === 0 &&
+                <div className={styles["no-context"]}>
+                    <p className={styles["no-context-text"]}>No purchases yet</p>
+                    <Link to={"/"} className={`${styles["button"]} ${styles["button1"]}`}>Home</Link>
+                </div>
+            }
 
-            <table id={styles["customers"]}>
-                <tbody>
-                    <tr>
-                        <th>Model</th>
-                        <th>Price</th>
-                        <th>User Email</th>
-                    </tr>
-                    {allPurchasesList}
-                </tbody>
-            </table>
+            {allPurchasesList.length > 0 &&
+                <>
+                    <h1 className={styles["title"]}>All Purchases</h1>
+
+                    <table id={styles["customers"]}>
+                        <tbody>
+                            <tr>
+                                <th>Model</th>
+                                <th>Price</th>
+                                <th>User Email</th>
+                            </tr>
+                            {allPurchasesList}
+
+                        </tbody>
+                    </table>
+                </>
+            }
         </>
     )
 }

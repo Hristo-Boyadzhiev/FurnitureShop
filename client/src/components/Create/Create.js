@@ -8,13 +8,13 @@ import { useEffect } from "react"
 
 export default function Create() {
     const navigate = useNavigate()
-    const {isAdmin} = useAuthContext()
+    const { isAdmin } = useAuthContext()
 
-useEffect(()=>{
-      if(!isAdmin){
-        navigate('/')
-    }
-}, [isAdmin, navigate])
+    useEffect(() => {
+        if (!isAdmin) {
+            return navigate('/')
+        }
+    }, [isAdmin, navigate])
 
 
     const { onCreateSubmit } = useFurnitureContext()

@@ -8,14 +8,17 @@ import { useAuthContext } from '../../contexts/AuthContext'
 
 export default function Basket() {
     const navigate = useNavigate()
-    const { userPurchases, onConfirmClick } = usePurchaseContext()
-    const {isAdmin} = useAuthContext()
+    // const { userPurchases, onConfirmClick } = usePurchaseContext()
+    const { userPurchases, onConfirmClick, getUserPurchasesFunction } = usePurchaseContext()
+    const {isAdmin, userId} = useAuthContext()
 
     useEffect(()=>{
           if(isAdmin){
-            navigate('/')
+           return navigate('/')
         }
-    }, [isAdmin, navigate])
+
+        getUserPurchasesFunction(userId)
+    }, [isAdmin, navigate, userId])
  
 
     // const [currentPurchases, setCurrentPurchases] = useState([])

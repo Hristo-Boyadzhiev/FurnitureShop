@@ -10,19 +10,32 @@ export default function PurchaseProvider({
     const [userPurchases, setUserPurchases] = useState([])
     const { userId, email, setAuthOnError403 } = useAuthContext()
 
-    useEffect(() => {
-        getUserPurchases(userId)
-            .then(currentPurchases => {
-                setUserPurchases(currentPurchases)
-            })
-            .catch(error => {
-                if (error.message === 'Invalid access token') {
-                    setAuthOnError403()
-                } else {
-                    alert(error.message)
-                }
-            })
-    }, [userId, setAuthOnError403])
+    // useEffect(() => {
+    //     getUserPurchases(userId)
+    //         .then(currentPurchases => {
+    //             setUserPurchases(currentPurchases)
+    //         })
+    //         .catch(error => {
+    //             if (error.message === 'Invalid access token') {
+    //                 setAuthOnError403()
+    //             } else {
+    //                 alert(error.message)
+    //             }
+    //         })
+    // }, [userId, setAuthOnError403])
+
+    const getUserPurchasesFunction = async (userId) => {
+        try {
+            const currentUserPurchases = await getUserPurchases(userId)
+            setUserPurchases(currentUserPurchases)
+        } catch (error) {
+            if (error.message === 'Invalid access token') {
+                setAuthOnError403()
+            } else {
+                alert(error.message)
+            }
+        }
+    }
 
     const onBuyClick = async (furniture) => {
         try {
@@ -69,8 +82,11 @@ export default function PurchaseProvider({
     }
 
 
+
+
     const PurchasesContextValues = {
         userPurchases,
+        getUserPurchasesFunction,
         onBuyClick,
         onDeleteUserClick,
         onConfirmClick
