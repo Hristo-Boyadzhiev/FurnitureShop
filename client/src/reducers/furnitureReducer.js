@@ -14,6 +14,11 @@ export default function furnitureReducer(state, action) {
                 }
                 ]
             }
+            case ('COMMENT_DELETE'):
+                return {
+                    ...state,
+                    commentsData: state.commentsData.filter(comment=>comment._id !== action.payload)
+                }
         default:
             return state;
     }

@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import { useEffect, useReducer } from 'react'
 import { getFurniture } from '../../services/furnitureService'
-import { createComment, getComments } from '../../services/commentService'
+import { createComment, getComments, deleteComment } from '../../services/commentService'
 
 import { useAuthContext } from '../../contexts/AuthContext'
 import { useFurnitureContext } from '../../contexts/FurnitureContext'
@@ -31,13 +31,13 @@ export default function Details() {
                     payload: furnitureState
                 })
             })
-            .catch(error=>{
-            if (error.message === 'Invalid access token') {
-                setAuthOnError403()
-            } else {
-                alert(error.message)
-            }
-        })
+            .catch(error => {
+                if (error.message === 'Invalid access token') {
+                    setAuthOnError403()
+                } else {
+                    alert(error.message)
+                }
+            })
     }, [furnitureId, setAuthOnError403])
 
     const onAddCommentSubmit = async (formValues) => {
@@ -51,18 +51,40 @@ export default function Details() {
         } catch (error) {
             if (error.message === 'Invalid access token') {
                 setAuthOnError403()
-              } else {
+            } else {
                 alert(error.message)
-              }
+            }
         }
     }
 
-    const isOwner = userId === furniture._ownerId
+    const onDeleteCommentClick = async (comment) => {
+        const commentId = comment._id
+        const confirm = window.confirm(`Are you sure you want to delete ${comment.comment}?`);
+        if (confirm) {
+            try {
+                await deleteComment(commentId)
+                dispatch({
+                    type: 'COMMENT_DELETE',
+                    payload: commentId
+                })
+            } catch (error) {
+                if (error.message === 'Invalid access token') {
+                    setAuthOnError403()
+                } else {
+                    alert(error.message)
+                }
+            }
+        }
+    }
+
+    const isFurnitureOwner = userId === furniture._ownerId
 
     const commentsList = furniture.commentsData?.map(x => <Comment
         key={x._id}
-        comment={x.comment}
+        comment={x}
+        commentText={x.comment}
         email={x.author.email}
+        onDeleteCommentClick={onDeleteCommentClick}
     />)
 
     return (
@@ -86,15 +108,15 @@ export default function Details() {
                     <section>
                         <span className={styles["skill-set"]}>
                             <div className={styles["skill-set-div"]}>
-                                {isAuthenticated && !isOwner &&
+                                {isAuthenticated && !isFurnitureOwner &&
                                     <span className={styles["skill-set-span"]}><button className={`${styles["button"]} ${styles["button1"]}`} onClick={() => onBuyClick(furniture)}>Buy</button></span>
                                 }
                                 <span className={styles["skill-set-span"]}><Link to={`/catalog/`} className={`${styles["button"]} ${styles["button1"]}`}>Back</Link></span>
 
-                                {isOwner &&
+                                {isFurnitureOwner &&
                                     <>
                                         <span className={styles["skill-set-span"]}><Link to={`/catalog/${furnitureId}/details/edit`} className={`${styles["button"]} ${styles["button1"]}`}>Edit</Link></span>
-                                        <span className={styles["skill-set-span"]}><button className={`${styles["button"]} ${styles["button1"]}`} onClick={()=>onDeleteClick(furniture)}>Delete</button></span>
+                                        <span className={styles["skill-set-span"]}><button className={`${styles["button"]} ${styles["button1"]}`} onClick={() => onDeleteClick(furniture)}>Delete</button></span>
                                     </>
                                 }
                             </div>
