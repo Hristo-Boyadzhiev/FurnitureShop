@@ -35,7 +35,7 @@ The private section becomes accessible after successful login and caters to two 
 
 #### Admin Access
 
-Admin users have access to the following features:
+Admin user has access to the following features:
 
 •	**Create Page:** Contains a form to input image, model, price, and description to create new furniture on the site. Only admin can create furniture. Input validations for the form include a minimum of 3 characters for the model, a positive number for the price, a valid URL for the image starting with "http://" or "https://," and a minimum of 5 characters for the description.
 
