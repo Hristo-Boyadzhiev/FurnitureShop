@@ -1,16 +1,15 @@
 # FurnitureShop
 
-**Project Description**
+## Project Description
 FurnitureShop is a Single Page Application (SPA) designed for selling furniture online. The website is constructed using ReactJS, with HTML and CSS for the frontend. The backend utilizes the Softuni Practice Server, built on NodeJS.
 
 **The application comprises two main parts:**
 
-**- Public Part**
+**-Public Part**
 
-**- Private Part**
+**-Private Part**
 
-
-**Public Part**
+### Public Part
 
 The public section is accessible without authentication, catering to users referred to as "guests." 
 Guests can explore the following features:
@@ -26,15 +25,16 @@ Guests can explore the following features:
 •	**Register Page:** Provides a form for guests to create a profile by entering an email, password, and repeating the password. Input validations for the register form include a valid email, a password with a minimum of 3 characters, and matching passwords.
 
 
-**Private Part**
+### Private Part
 
 The private section becomes accessible after successful login and caters to two types of authenticated users:
 
-• **Admin User:** Admin user, identified by the email "hristo@abv.bg," has additional privileges.
+• **Admin User:** Admin user, identified by the email "hristo@abv.bg" has additional privileges.
 
 •	**Non-Admin Users:** Authenticated users without admin privileges.
 
-**Admin Access**
+#### Admin Access
+
 Admin users have access to the following features:
 
 •	**Create Page:** Contains a form to input image, model, price, and description to create new furniture on the site. Only admin can create furniture. Input validations for the form include a minimum of 3 characters for the model, a positive number for the price, a valid URL for the image starting with "http://" or "https://," and a minimum of 5 characters for the description.
@@ -45,7 +45,7 @@ Admin users have access to the following features:
 
 •	**Details Page:** In addition to the information visible to guests, admin users can edit and delete furniture. The edit page loads a form with pre-filled data for the selected furniture. A delete button prompts confirmation or refusal to delete the specific furniture piece. The comments section includes a field to add a comment and a publish button. After adding a comment, its content is displayed, and a delete button.
 
-**Non-Admin User Access**
+#### Non-Admin User Access
 
 Non-admin users have access to the following features:
 
@@ -75,6 +75,8 @@ The guards to manage user access:
 
 •	If an admin attempts to enter a page requiring user privileges, they are redirected to the home page.
 
+### Functionalities access
+
 | Functionality      |   Admin   |   User    |   Guest   |
 | ------------------ |:---------:|:---------:|:---------:|
 | Home page          |     ✅     |     ✅     |     ✅     |
@@ -98,11 +100,11 @@ The guards to manage user access:
 
 
 
-**Validation**
+### Validation
 
 Input field validation occurs when exiting a field, thanks to the "onBlur" event. This validation is facilitated by the "useValidation" custom hook.
 
-**Installation and usage**
+## Installation and usage
 
 **To run client app**
 
