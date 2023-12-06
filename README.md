@@ -75,26 +75,27 @@ The guards to manage user access:
 
 •	If an admin attempts to enter a page requiring user privileges, they are redirected to the home page.
 
-| Functionality      | Admin | User | Guest |
-| ------------------ | ----- | ---- | ----- |
-| Home page          | ✅    | ✅   | ✅    |
-| Catalog page       | ✅    | ✅   | ✅    |
-| Details page       | ✅    | ✅   | ✅    |
-| Create furniture   | ✅    | ❌   | ❌    |
-| Edit furniture     | ✅    | ❌   | ❌    |
-| Delete furniture   | ✅    | ❌   | ❌    |
-| Buy furniture      | ❌   | ✅   | ❌    |
-| View comments      | ✅    | ✅   | ✅    |
-| Create comment     | ✅    | ✅   | ❌    |
-| Delete own comment  | ✅    | ✅   | ❌    |
-| Message page       | ✅    | ❌   | ❌    |
-| Purchases page     | ✅    | ❌   | ❌    |
-| Contact us page    | ❌   | ✅   | ❌    |
-| Basket page        | ❌   | ✅   | ❌    |
-| Not Found page     | ✅    | ✅   | ✅    |
-| Login page         | ❌   | ❌   | ✅    |
-| Register page      | ❌   | ❌   | ✅    |
-| Logout             | ✅    | ✅   | ❌    |
+| Functionality      |   Admin   |   User    |   Guest   |
+| ------------------ |:---------:|:---------:|:---------:|
+| Home page          |     ✅     |     ✅     |     ✅     |
+| Catalog page       |     ✅     |     ✅     |     ✅     |
+| Details page       |     ✅     |     ✅     |     ✅     |
+| Create furniture   |     ✅     |     ❌     |     ❌     |
+| Edit furniture     |     ✅     |     ❌     |     ❌     |
+| Delete furniture   |     ✅     |     ❌     |     ❌     |
+| Buy furniture      |     ❌     |     ✅     |     ❌     |
+| View comments      |     ✅     |     ✅     |     ✅     |
+| Create comment     |     ✅     |     ✅     |     ❌     |
+| Delete own comment  |     ✅     |     ✅     |     ❌     |
+| Message page       |     ✅     |     ❌     |     ❌     |
+| Purchases page     |     ✅     |     ❌     |     ❌     |
+| Contact us page    |     ❌     |     ✅     |     ❌     |
+| Basket page        |     ❌     |     ✅     |     ❌     |
+| Not Found page     |     ✅     |     ✅     |     ✅     |
+| Login page         |     ❌     |     ❌     |     ✅     |
+| Register page      |     ❌     |     ❌     |     ✅     |
+| Logout             |     ✅     |     ✅     |     ❌     |
+
 
 
 **Validation**
