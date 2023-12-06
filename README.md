@@ -68,9 +68,34 @@ If someone attempts to access an undefined link, they are redirected to the "Not
 **Guards**
 
 The guards to manage user access:
+
 •	If an unauthenticated user (guest) attempts to enter a page requiring authentication, they are redirected to the login page.
+
 •	If a user tries to log in to a page requiring admin privileges, they are redirected to the home page.
+
 •	If an admin attempts to enter a page requiring user privileges, they are redirected to the home page.
+
+| Functionality      | Admin | User | Guest |
+| ------------------ | ----- | ---- | ----- |
+| Home page          | ✅    | ✅   | ✅    |
+| Catalog page       | ✅    | ✅   | ✅    |
+| Details page       | ✅    | ✅   | ✅    |
+| Create furniture   | ✅    | ❌   | ❌    |
+| Edit furniture     | ✅    | ❌   | ❌    |
+| Delete furniture   | ✅    | ❌   | ❌    |
+| Buy furniture      | ❌   | ✅   | ❌    |
+| View comments      | ✅    | ✅   | ✅    |
+| Create comment     | ✅    | ✅   | ❌    |
+| Delete own comment  | ✅    | ✅   | ❌    |
+| Message page       | ✅    | ❌   | ❌    |
+| Purchases page     | ✅    | ❌   | ❌    |
+| Contact us page    | ❌   | ✅   | ❌    |
+| Basket page        | ❌   | ✅   | ❌    |
+| Not Found page     | ✅    | ✅   | ✅    |
+| Login page         | ❌   | ❌   | ✅    |
+| Register page      | ❌   | ❌   | ✅    |
+| Logout             | ✅    | ✅   | ❌    |
+
 
 **Validation**
 
