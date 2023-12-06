@@ -102,3 +102,28 @@ The guards to manage user access:
 
 Input field validation occurs when exiting a field, thanks to the "onBlur" event. This validation is facilitated by the "useValidation" custom hook.
 
+**Installation and usage**
+
+**To run client app**
+
+Type in the terminal:
+
+   cd client 
+   
+   npm install
+   
+   npm start
+
+   
+
+**To run server app**
+
+Type in the new terminal:
+
+cd server
+
+npm install
+
+npm run dev
+
+
