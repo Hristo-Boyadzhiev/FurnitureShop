@@ -3,45 +3,36 @@ import { usePurchaseContext } from '../../contexts/PurchaseContext'
 import styles from './Basket.module.css'
 import BasketItem from './BasketItem/BasketItem'
 import { Link, useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuthContext } from '../../contexts/AuthContext'
 
 export default function Basket() {
     const navigate = useNavigate()
-    // const { userPurchases, onConfirmClick } = usePurchaseContext()
     const { userPurchases, onConfirmClick, getUserPurchasesFunction } = usePurchaseContext()
-    const {isAdmin, userId} = useAuthContext()
+    const [subTotal, setSubTotal] = useState(0)
+    const [currentQuantity, setCurrentQuantity] = useState(1)
+    const { isAdmin, userId } = useAuthContext()
 
-    useEffect(()=>{
-          if(isAdmin){
-           return navigate('/')
+    useEffect(() => {
+        if (isAdmin) {
+            return navigate('/')
         }
 
         getUserPurchasesFunction(userId)
     }, [isAdmin, navigate, userId])
- 
-
-    // const [currentPurchases, setCurrentPurchases] = useState([])
-    // console.log(purchases)
-
-    // useEffect(()=>{
-    //     setCurrentPurchases(purchases)
-    // }, [purchases])
-
 
     const calculatePrices = (furnitureId, quantity) => {
-        // const totalProductsPriceArray = purchases?.map(x => x.furniture._id === furnitureId ? Number(x.furniture.price) * Number(quantity) : Number(x.furniture.price))
-        // const totalProductsPriceArray = purchases?.map(x => x.furniture._id === furnitureId ? Number(x.furniture.price) * Number(quantity) : Number(x.furniture.price))
-
-        // setCurrentPurchases(currentPurchases?.map(x => x.furniture._id === furnitureId ? Number(x.furniture.price) * Number(quantity) : Number(x.furniture.price)))
-        // setCurrentPurchases(state=>state.map(x => x.furniture._id === furnitureId ? Number(x.furniture.price) * Number(quantity) : Number(x.furniture.price)))
-        //    console.log(totalProductsPriceArray)
+        console.log(quantity)
+        const furnitureWithChangedQuantity = userPurchases.find(x => x.furniture._id === furnitureId)
+        if (quantity >= currentQuantity) {
+            setSubTotal(state => state + Number(furnitureWithChangedQuantity.furniture.price))
+        } else {
+            setSubTotal(state => state - Number(furnitureWithChangedQuantity.furniture.price))
+        }
+        setCurrentQuantity(quantity)
     }
 
-
-
-
-
+    const deliveryCost = subTotal >= 100 ? 0 : 10
 
     const basketList = userPurchases?.map(x => <BasketItem
         key={x._id}
@@ -49,8 +40,6 @@ export default function Basket() {
         furniture={x.furniture}
         calculatePrices={calculatePrices}
     />)
-
-    
 
     return (
         <>
@@ -79,20 +68,20 @@ export default function Basket() {
                     </ul>
                 </div>  */}
 
-                       
+
                         {basketList}
-                    
+
                     </div>
                     <aside>
                         <div className={styles["summary"]}>
                             <div className={styles["summary-total-items"]}><span className={styles["total-items"]}></span> Items in your Bag</div>
                             <div className={styles["summary-subtotal"]}>
                                 <div className={styles["subtotal-title"]}>Subtotal</div>
-                                <div className={`${styles["subtotal-value"]} ${styles["final-value"]}`} id={styles["basket-subtotal"]}>130.00</div>
+                                <div className={`${styles["subtotal-value"]} ${styles["final-value"]}`} id={styles["basket-subtotal"]}>{subTotal}</div>
                             </div>
                             <div className={styles["summary-subtotal"]}>
                                 <div className={styles["subtotal-title"]}>Delivery</div>
-                                <div className={`${styles["subtotal-value"]} ${styles["final-value"]}`} id={styles["basket-subtotal"]}>10</div>
+                                <div className={`${styles["subtotal-value"]} ${styles["final-value"]}`} id={styles["basket-subtotal"]}>{deliveryCost}</div>
                             </div>
                             <div className={styles["summary-delivery"]}>
                                 {/* <select name="delivery-collection" className={styles["summary-delivery-selection"]}>
@@ -106,7 +95,7 @@ export default function Basket() {
                             </div>
                             <div className={styles["summary-total"]}>
                                 <div className={styles["total-title"]}>Total</div>
-                                <div className={`${styles["total-value"]} ${styles["final-value"]}`} id={styles["basket-total"]}>130.00</div>
+                                <div className={`${styles["total-value"]} ${styles["final-value"]}`} id={styles["basket-total"]}>{subTotal + deliveryCost}</div>
                             </div>
                             <div className={styles["summary-checkout"]}>
                                 <Link to={"/completed-order"} className={`${styles["checkout-cta"]} ${styles["button"]} ${styles["button1"]}`} onClick={onConfirmClick}>CONFIRM ORDER</Link>

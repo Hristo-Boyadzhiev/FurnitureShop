@@ -1,27 +1,25 @@
 import styles from './BasketItem.module.css'
 import { useForm } from '../../../hooks/useForm'
-// import { useEffect } from 'react'
+import { useEffect } from 'react'
 import { usePurchaseContext } from '../../../contexts/PurchaseContext'
 import { Link } from 'react-router-dom'
 
 export default function BasketItem({
     furniture,
     purchase,
-    // calculatePrices
+    calculatePrices
 }) {
     const { onDeletePurchaseClick } = usePurchaseContext()
     const { formValues, onChangeHandler } = useForm({
         quantity: 1
     })
 
-    // useEffect(()=>{
-    //     calculatePrices(furniture._id, formValues.quantity)
-    // }, [formValues.quantity])
+const totalProduct = Number(formValues.quantity) * furniture.price
 
+    useEffect(()=>{
+        calculatePrices(furniture._id, Number(formValues.quantity))
+    }, [formValues.quantity])
 
-
-
-    const totalProduct = Number(formValues.quantity) * furniture.price
 
     return (
         <div className={styles["basket-product"]}>

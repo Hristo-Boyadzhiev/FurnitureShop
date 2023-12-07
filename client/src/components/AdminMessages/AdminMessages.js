@@ -33,7 +33,7 @@ export default function AdminMessages() {
         <>
             {messagesList.length === 0 &&
                 <div className={styles["no-context"]}>
-                    <p className={styles["no-context-text"]}>No purchases yet</p>
+                    <p className={styles["no-context-text"]}>No messages yet</p>
                     <Link to={"/"} className={`${styles["button"]} ${styles["button1"]}`}>Home</Link>
                 </div>
             }

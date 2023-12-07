@@ -33,13 +33,13 @@ function App() {
         <Routes> 
           <Route path='/' element={<Home />} />
           <Route path='/catalog' element={<Catalog />} />
-          <Route path='/contacts' element={<Contacts />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/catalog/:furnitureId/details/' element={<Details />} />
 
 
           <Route element={<AuthGuards />}>
+          <Route path='/contacts' element={<Contacts />} />
             <Route path='/create' element={<Create />} />
             <Route path='/catalog/:furnitureId/details/edit' element={<Edit />} />
             <Route path='/logout' element={<Logout />} />
