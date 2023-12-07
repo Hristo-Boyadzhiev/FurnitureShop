@@ -4,12 +4,14 @@ let endpoints = {
     createPurchase: '/data/purchases',
     getAllUsersPurchases: '/data/purchases',
     getUserPurchases: userId => getUserPurchasesEndpoint(userId),
-    deletePurchase: purchaseId => `/data/purchases/${purchaseId}`
+    deletePurchase: purchaseId => `/data/purchases/${purchaseId}`,
+    editPurchase: purchaseId => `/data/purchases/${purchaseId}`
 }
 
 export function createPurchase(userId, userEmail, furniture) {
     const data = {
         furniture,
+        quantity: 1,
         userId,
         userEmail
     }
@@ -31,6 +33,10 @@ function getUserPurchasesEndpoint(userId){
 
 export function deletePurchase(purchaseId) {
     return api.delete(endpoints.deletePurchase(purchaseId))
+}
+
+export function editPurchase(purchaseId, data) {
+    return api.put(endpoints.editPurchase(purchaseId), data)
 }
 
 

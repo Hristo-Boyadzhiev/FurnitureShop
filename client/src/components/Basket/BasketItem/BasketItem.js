@@ -1,25 +1,28 @@
 import styles from './BasketItem.module.css'
 import { useForm } from '../../../hooks/useForm'
 import { useEffect } from 'react'
-import { usePurchaseContext } from '../../../contexts/PurchaseContext'
+import { editPurchase } from '../../../services/purchaseService'
 import { Link } from 'react-router-dom'
+import { usePurchaseContext } from '../../../contexts/PurchaseContext'
 
 export default function BasketItem({
     furniture,
-    purchase,
-    calculatePrices
+    purchase
 }) {
-    const { onDeletePurchaseClick } = usePurchaseContext()
     const { formValues, onChangeHandler } = useForm({
         quantity: 1
     })
 
-const totalProduct = Number(formValues.quantity) * furniture.price
+    const { editPurchasesInState, onDeletePurchaseClick } = usePurchaseContext()
 
-    useEffect(()=>{
-        calculatePrices(furniture._id, Number(formValues.quantity))
+    useEffect(() => {
+        editPurchase(purchase._id, { ...purchase, quantity: Number(formValues.quantity) })
+            .then(editedPurchase => {
+                editPurchasesInState(editedPurchase)
+            })
     }, [formValues.quantity])
 
+    const totalProduct = Number(formValues.quantity) * furniture.price
 
     return (
         <div className={styles["basket-product"]}>
@@ -33,8 +36,6 @@ const totalProduct = Number(formValues.quantity) * furniture.price
                             <span className={styles["item-model"]}>{furniture.model}</span>
                         </strong>
                     </h1>
-                    {/* <p><strong>Navy, Size 18</strong></p>
-                    <p>Product Code - 232321939</p> */}
                 </div>
             </div>
             <div className={styles["price"]}>{furniture.price}</div>
@@ -49,13 +50,9 @@ const totalProduct = Number(formValues.quantity) * furniture.price
                 />
             </div>
             <div className={styles["subtotal"]}>{totalProduct}</div>
-            {/* <div className={styles["remove"]}>
-                <button><Link to={`/catalog/${furniture._id}/details`}>Product Details</Link></button>
-                <button onClick={() => onDeleteUserClick(purchase)}>Remove</button>
-            </div> */}
-             <div className={styles["remove"]}>
-               <Link to={`/catalog/${furniture._id}/details`} className={`${styles["button"]} ${styles["button1"]}`}>Product Details</Link>
-                <button onClick={() => onDeletePurchaseClick(purchase)} className={`${styles["button"]} ${styles["button1"]}`}>Remove</button>
+            <div className={styles["remove"]}>
+                <Link to={`/catalog/${furniture._id}/details`} className={`${styles["button"]} ${styles["button1"]}`}>Product Details</Link>
+                <button onClick={() => onDeletePurchaseClick(purchase, furniture._id, formValues.quantity)} className={`${styles["button"]} ${styles["button1"]}`}>Remove</button>
             </div>
         </div>
     )

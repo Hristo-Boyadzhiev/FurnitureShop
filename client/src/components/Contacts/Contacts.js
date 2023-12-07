@@ -32,6 +32,7 @@ export default function Contacts() {
     async function onSendMessageSubmit (){
         try {
             await createMessage(formValues)
+            navigate('/catalog')
         } catch (error) {
             if (error.message === 'Invalid access token') {
                 setAuthOnError403()

@@ -1,18 +1,18 @@
 import styles from './Purchases.module.css'
-import { getAllUsersPurchases } from '../../services/purchaseService'
 import { useEffect, useState } from 'react'
 import { useAuthContext } from '../../contexts/AuthContext'
 import PurchasesItem from './PurchasesItem/PurchasesItem'
 import { Link } from 'react-router-dom'
+import { getCompletedPurchases } from '../../services/completedPurchaseService'
 
 export default function Purchases() {
     const { setAuthOnError403 } = useAuthContext()
-    const [allPurchases, setAllPurchases] = useState([])
+    const [completedPurchases, setCompletedPurchases] = useState([])
 
     useEffect(() => {
-        getAllUsersPurchases()
-            .then(purchases => {
-                setAllPurchases(purchases)
+        getCompletedPurchases()
+            .then(CurrentCompletedPurchases => {
+                setCompletedPurchases(CurrentCompletedPurchases)
             })
             .catch(error => {
                 if (error.message === 'Invalid access token') {
@@ -23,7 +23,7 @@ export default function Purchases() {
             })
     }, [setAuthOnError403])
 
-    const allPurchasesList = allPurchases?.map(x => <PurchasesItem
+        const allPurchasesList = completedPurchases?.map(x => <PurchasesItem
         key={x._id}
         purchase={x}
         furniture={x.furniture}
@@ -47,6 +47,8 @@ export default function Purchases() {
                             <tr>
                                 <th>Model</th>
                                 <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total Sum</th>
                                 <th>User Email</th>
                             </tr>
                             {allPurchasesList}
