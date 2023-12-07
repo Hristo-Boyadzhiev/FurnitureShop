@@ -4,7 +4,7 @@ export const useValidation = (initialValues) => {
     const [formErrors, setFormErrors] = useState(initialValues)
 
     const onValidateHandler = (event) => {
-        if (event.target.name === 'email' && (/^[A-Za-z0-9_\.]+@[A-Za-z]+\.[A-Za-z]{2,3}$/.test(event.target.value) === false)) {
+        if (event.target.name === 'email' && (/^[A-Za-z0-9_.]+@[A-Za-z]+\.[A-Za-z]{2,3}$/.test(event.target.value) === false)) {
             setFormErrors(state => ({ ...state, email: 'The email is not valid!'}))
         } else {
             setFormErrors(state => ({ ...state, email: '' }))
