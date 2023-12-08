@@ -18,7 +18,7 @@ import styles from './Details.module.css'
 export default function Details() {
     const { furnitureId } = useParams()
     const [furniture, dispatch] = useReducer(furnitureReducer, '')
-    const { isAuthenticated, userId, email, setAuthOnError403 } = useAuthContext()
+    const { isAuthenticated, email, setAuthOnError403, isAdmin } = useAuthContext()
     const { onDeleteClick } = useFurnitureContext()
     const { onBuyClick } = usePurchaseContext()
 
@@ -80,8 +80,6 @@ export default function Details() {
         }
     }
 
-    const isFurnitureOwner = userId === furniture._ownerId
-
     const commentsList = furniture.commentsData?.map(x => <Comment
         key={x._id}
         comment={x}
@@ -111,12 +109,12 @@ export default function Details() {
                     <section>
                         <span className={styles["skill-set"]}>
                             <div className={styles["skill-set-div"]}>
-                                {isAuthenticated && !isFurnitureOwner &&
+                                {isAuthenticated && !isAdmin &&
                                     <span className={styles["skill-set-span"]}><button className={`${styles["button"]} ${styles["button1"]}`} onClick={() => onBuyClick(furniture)}>Buy</button></span>
                                 }
                                 <span className={styles["skill-set-span"]}><Link to={`/catalog/`} className={`${styles["button"]} ${styles["button1"]}`}>Back</Link></span>
 
-                                {isFurnitureOwner &&
+                                {isAdmin &&
                                     <>
                                         <span className={styles["skill-set-span"]}><Link to={`/catalog/${furnitureId}/details/edit`} className={`${styles["button"]} ${styles["button1"]}`}>Edit</Link></span>
                                         <span className={styles["skill-set-span"]}><button className={`${styles["button"]} ${styles["button1"]}`} onClick={() => onDeleteClick(furniture)}>Delete</button></span>
