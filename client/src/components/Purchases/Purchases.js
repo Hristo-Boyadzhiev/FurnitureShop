@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { useAuthContext } from '../../contexts/AuthContext'
 import { getCompletedPurchases } from '../../services/completedPurchaseService'
@@ -9,10 +9,15 @@ import PurchasesItem from './PurchasesItem/PurchasesItem'
 import styles from './Purchases.module.css'
 
 export default function Purchases() {
-    const { setAuthOnError403 } = useAuthContext()
+    const { setAuthOnError403, isAdmin } = useAuthContext()
     const [completedPurchases, setCompletedPurchases] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
+        if (!isAdmin) {
+            return navigate('/')
+        }
+
         getCompletedPurchases()
             .then(CurrentCompletedPurchases => {
                 setCompletedPurchases(CurrentCompletedPurchases)
