@@ -56,7 +56,6 @@ export default function FurnitureProvider({
     }
   }
 
-
   const onDeleteClick = async (furniture) => {
     const furnitureId = furniture._id
     const confirm = window.confirm(`Are you sure you want to delete ${furniture.model}?`);
