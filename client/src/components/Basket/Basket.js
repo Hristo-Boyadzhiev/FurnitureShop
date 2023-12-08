@@ -17,6 +17,7 @@ export default function Basket() {
         if (isAdmin) {
             return navigate('/')
         }
+        
         getUserPurchasesFunction(userId)
 
     }, [isAdmin, navigate, userId])
