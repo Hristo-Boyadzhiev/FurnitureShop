@@ -50,7 +50,7 @@ export default function Edit() {
                     alert(error.message)
                 }
             })
-    }, [furnitureId, userId, navigate, setAuthOnError403])
+    }, [furnitureId, userId, navigate, setAuthOnError403, isAdmin])
 
     return (
         <>

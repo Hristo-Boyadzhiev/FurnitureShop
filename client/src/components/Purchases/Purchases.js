@@ -29,7 +29,7 @@ export default function Purchases() {
                     alert(error.message)
                 }
             })
-    }, [setAuthOnError403])
+    }, [setAuthOnError403, isAdmin, navigate])
 
     const allPurchasesList = completedPurchases?.map(x => <PurchasesItem
         key={x._id}

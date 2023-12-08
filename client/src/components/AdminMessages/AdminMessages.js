@@ -30,7 +30,7 @@ export default function AdminMessages() {
                     alert(error.message)
                 }
             })
-    }, [setAuthOnError403])
+    }, [setAuthOnError403, isAdmin, navigate])
 
     const messagesList = messages?.map(x => <AdminMessagesItem
         key={x._id}
