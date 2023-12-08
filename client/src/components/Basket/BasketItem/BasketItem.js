@@ -1,13 +1,15 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
+import { usePurchaseContext } from '../../../contexts/PurchaseContext'
+import { useAuthContext } from '../../../contexts/AuthContext'
+
 import { useForm } from '../../../hooks/useForm'
 
 import { editPurchase } from '../../../services/purchaseService'
 
-import { usePurchaseContext } from '../../../contexts/PurchaseContext'
-
 import styles from './BasketItem.module.css'
+
 
 export default function BasketItem({
     furniture,
@@ -18,11 +20,19 @@ export default function BasketItem({
     })
 
     const { editPurchasesInState, onDeletePurchaseClick } = usePurchaseContext()
+    const { setAuthOnError403 } = useAuthContext()
 
     useEffect(() => {
         editPurchase(purchase._id, { ...purchase, quantity: Number(formValues.quantity) })
             .then(editedPurchase => {
                 editPurchasesInState(editedPurchase)
+            })
+            .catch(error=>{
+                if (error.message === 'Invalid access token') {
+                    setAuthOnError403()
+                  } else {
+                    alert(error.message)
+                  }
             })
     }, [formValues.quantity])
 
