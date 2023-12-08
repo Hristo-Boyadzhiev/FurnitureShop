@@ -93,6 +93,7 @@ The guards to manage user access:
 | Purchases page     |     ✅     |     ❌     |     ❌     |
 | Contact us page    |     ❌     |     ✅     |     ❌     |
 | Basket page        |     ❌     |     ✅     |     ❌     |
+| Completed order page        |     ❌     |     ✅     |     ❌     |
 | Not Found page     |     ✅     |     ✅     |     ✅     |
 | Login page         |     ❌     |     ❌     |     ✅     |
 | Register page      |     ❌     |     ❌     |     ✅     |
