@@ -3,12 +3,7 @@
 	font-family: roboto;
 	line-height: 1;
 }
-/* body {
-	max-width: 100%;
-	margin: 0;
-	padding: 0;
-	background: linear-gradient(to right, rgb(5, 231, 157), rgb(83, 192, 251));
-} */
+
 .create-container {
 	display: -webkit-box;
   display: -webkit-flex;

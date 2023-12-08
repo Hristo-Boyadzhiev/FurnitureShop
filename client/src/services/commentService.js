@@ -18,7 +18,7 @@ export function getComments(furnitureId) {
     return api.get(endpoints.getComments(furnitureId))
 }
 
-function getCommentsEndpoint (furnitureId){
+function getCommentsEndpoint(furnitureId) {
     const searchQuery = encodeURIComponent(`furnitureId="${furnitureId}"`)
     const relationQuery = encodeURIComponent(`author=_ownerId:users`)
     return `/data/comments?where=${searchQuery}&load=${relationQuery}`

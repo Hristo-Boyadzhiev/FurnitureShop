@@ -2,17 +2,6 @@
 	-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
    }
   
-  
-  /* .skill-set li:hover
-  {
-	  background:#3498db;
-  } */
-  
-  /* h1
-  {
-	  color:rgba(0,0,0,.75);
-  } */
-  
   .wrapper
   {
 	  height:100%;
@@ -28,7 +17,6 @@
 	  min-width:256px;
 	  position:fixed;
 	  width:50%;
-	
   }
   
   .right
@@ -116,7 +104,6 @@
   {
 	  color:rgba(0,0,0,1);
 	  font-style:normal;
-	
   }
   
   .inner section
@@ -167,7 +154,7 @@
   { font-size:14px;}
   }
   .clearfix:after {
-	 content: " "; /* Older browser do not support empty content */
+	 content: " "; 
 	 visibility: hidden;
 	 display: block;
 	 height: 0;
@@ -242,17 +229,6 @@ margin-right: 20px;
 .skill-set-div {
 	text-align:center;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 .be-comment-block {
     margin-bottom: 50px !important;
@@ -348,12 +324,10 @@ margin-right: 20px;
     font-size: 13px;
     line-height: 50px;
     font-weight: 400;
-    /* color: #b4b7c1; */
     width: 100%;
     height: 50px;
     padding-left: 20px;
     padding-right: 20px;
-    /* border: 1px solid #edeff2; */
     border-radius: 3px;
 	border-style:solid
 }

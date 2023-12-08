@@ -18,7 +18,7 @@ export function createPurchase(userId, userEmail, furniture) {
     return api.post(endpoints.createPurchase, data)
 }
 
-export function getAllUsersPurchases(){
+export function getAllUsersPurchases() {
     return api.get(endpoints.getAllUsersPurchases)
 }
 
@@ -26,7 +26,7 @@ export function getUserPurchases(userId) {
     return api.get(endpoints.getUserPurchases(userId))
 }
 
-function getUserPurchasesEndpoint(userId){
+function getUserPurchasesEndpoint(userId) {
     const searchQuery = encodeURIComponent(`userId="${userId}"`)
     return `/data/purchases?where=${searchQuery}`
 }

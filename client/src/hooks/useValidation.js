@@ -5,7 +5,7 @@ export const useValidation = (initialValues) => {
 
     const onValidateHandler = (event) => {
         if (event.target.name === 'email' && (/^[A-Za-z0-9_.]+@[A-Za-z]+\.[A-Za-z]{2,3}$/.test(event.target.value) === false)) {
-            setFormErrors(state => ({ ...state, email: 'The email is not valid!'}))
+            setFormErrors(state => ({ ...state, email: 'The email is not valid!' }))
         } else {
             setFormErrors(state => ({ ...state, email: '' }))
         }
@@ -34,7 +34,7 @@ export const useValidation = (initialValues) => {
             setFormErrors(state => ({ ...state, price: '' }))
         }
 
-        if(event.target.name === 'imageUrl' && (/^https?:\/\/.+/.test(event.target.value)=== false)){
+        if (event.target.name === 'imageUrl' && (/^https?:\/\/.+/.test(event.target.value) === false)) {
             setFormErrors(state => ({ ...state, imageUrl: 'The URL is not valid' }))
         } else {
             setFormErrors(state => ({ ...state, imageUrl: '' }))
@@ -57,7 +57,6 @@ export const useValidation = (initialValues) => {
         } else {
             setFormErrors(state => ({ ...state, message: '' }))
         }
-
     }
 
     return {

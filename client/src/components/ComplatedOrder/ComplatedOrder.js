@@ -1,5 +1,6 @@
-import styles from './ComplatedOrder.module.css'
 import { useNavigate } from 'react-router-dom'
+
+import styles from './ComplatedOrder.module.css'
 
 export default function ComplatedOrder() {
     const navigate = useNavigate()

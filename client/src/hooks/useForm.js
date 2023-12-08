@@ -14,7 +14,6 @@ export const useForm = (initialValues, onSubmitHandler) => {
     }
 
     const changeValues = (newValues)=>{
-        //проверка трябва - виж края на workshop за аутентикация
         setFormValues(newValues)
     }
 

@@ -1,6 +1,8 @@
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { createFurniture, getFurnitures, editFurniture, deleteFurniture } from "../services/furnitureService";
+
 import { useAuthContext } from "./AuthContext";
 
 const FurnitureContext = createContext()
@@ -9,22 +11,8 @@ export default function FurnitureProvider({
   children
 }) {
   const [furnitures, setFurnitures] = useState([])
-  const navigate = useNavigate()
   const { setAuthOnError403 } = useAuthContext()
-
-  // useEffect(() => {
-  //   getFurnitures()
-  //     .then(currentFurnitures => {
-  //       setFurnitures(currentFurnitures)
-  //     })
-  //     .catch(error => {
-  //       if (error.message === 'Invalid access token') {
-  //         setAuthOnError403()
-  //     } else {
-  //         alert(error.message)
-  //     }
-  //     })
-  // }, [setAuthOnError403])
+  const navigate = useNavigate()
 
   const getFurnituresFunction = async () => {
     try {
@@ -71,13 +59,11 @@ export default function FurnitureProvider({
 
   const onDeleteClick = async (furniture) => {
     const furnitureId = furniture._id
-    //Ако имам време да не го правя с confirm, а да излиза модал, 
-    //както го правихме преди няколко лекции
     const confirm = window.confirm(`Are you sure you want to delete ${furniture.model}?`);
     if (confirm) {
       try {
         await deleteFurniture(furnitureId)
-        setFurnitures(state=>state.filter(furniture=> furniture._id !== furnitureId))
+        setFurnitures(state => state.filter(furniture => furniture._id !== furnitureId))
         navigate('/catalog')
       } catch (error) {
         if (error.message === 'Invalid access token') {

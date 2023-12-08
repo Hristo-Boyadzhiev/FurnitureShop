@@ -1,9 +1,12 @@
-import { useForm } from "../../hooks/useForm"
-import { useAuthContext } from "../../contexts/AuthContext"
-import { useNavigate, Link } from "react-router-dom"
 import { useEffect } from "react"
-import styles from './Login.module.css'
+import { useNavigate, Link } from "react-router-dom"
+
+import { useForm } from "../../hooks/useForm"
 import { useValidation } from "../../hooks/useValidation"
+
+import { useAuthContext } from "../../contexts/AuthContext"
+
+import styles from './Login.module.css'
 
 export default function Login() {
     const navigate = useNavigate()
@@ -18,7 +21,7 @@ export default function Login() {
         email: '',
         password: ''
     })
-    
+
     useEffect(() => {
         if (isAuthenticated) {
             return navigate('/')

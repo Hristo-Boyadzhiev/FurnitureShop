@@ -1,5 +1,6 @@
-import { useParams, Link } from 'react-router-dom'
 import { useEffect, useReducer } from 'react'
+import { useParams, Link } from 'react-router-dom'
+
 import { getFurniture } from '../../services/furnitureService'
 import { createComment, getComments, deleteComment } from '../../services/commentService'
 
@@ -7,9 +8,11 @@ import { useAuthContext } from '../../contexts/AuthContext'
 import { useFurnitureContext } from '../../contexts/FurnitureContext'
 import { usePurchaseContext } from '../../contexts/PurchaseContext'
 
+import furnitureReducer from '../../reducers/furnitureReducer'
+
 import AddComment from './AddComment/AddComment'
 import Comment from './Comment/Comment'
-import furnitureReducer from '../../reducers/furnitureReducer'
+
 import styles from './Details.module.css'
 
 export default function Details() {

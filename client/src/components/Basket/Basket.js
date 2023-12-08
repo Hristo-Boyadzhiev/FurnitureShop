@@ -1,10 +1,12 @@
-import { usePurchaseContext } from '../../contexts/PurchaseContext'
-import styles from './Basket.module.css'
-import BasketItem from './BasketItem/BasketItem'
-import { Link, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { usePurchaseContext } from '../../contexts/PurchaseContext'
 import { useAuthContext } from '../../contexts/AuthContext'
 
+import BasketItem from './BasketItem/BasketItem'
+
+import styles from './Basket.module.css'
 
 export default function Basket() {
     const navigate = useNavigate()
@@ -59,7 +61,7 @@ export default function Basket() {
                                 <div className={`${styles["subtotal-value"]} ${styles["final-value"]}`} id={styles["basket-subtotal"]}>{deliveryCost}</div>
                             </div>
                             <div className={styles["summary-delivery"]}>
-                              
+
                             </div>
                             <div className={styles["summary-total"]}>
                                 <div className={styles["total-title"]}>Total</div>

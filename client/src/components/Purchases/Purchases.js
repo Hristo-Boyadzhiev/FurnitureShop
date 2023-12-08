@@ -1,9 +1,12 @@
-import styles from './Purchases.module.css'
 import { useEffect, useState } from 'react'
-import { useAuthContext } from '../../contexts/AuthContext'
-import PurchasesItem from './PurchasesItem/PurchasesItem'
 import { Link } from 'react-router-dom'
+
+import { useAuthContext } from '../../contexts/AuthContext'
 import { getCompletedPurchases } from '../../services/completedPurchaseService'
+
+import PurchasesItem from './PurchasesItem/PurchasesItem'
+
+import styles from './Purchases.module.css'
 
 export default function Purchases() {
     const { setAuthOnError403 } = useAuthContext()
@@ -23,7 +26,7 @@ export default function Purchases() {
             })
     }, [setAuthOnError403])
 
-        const allPurchasesList = completedPurchases?.map(x => <PurchasesItem
+    const allPurchasesList = completedPurchases?.map(x => <PurchasesItem
         key={x._id}
         purchase={x}
         furniture={x.furniture}

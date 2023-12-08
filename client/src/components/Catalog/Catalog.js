@@ -1,15 +1,16 @@
-import { useFurnitureContext } from '../../contexts/FurnitureContext'
-import { Link } from 'react-router-dom'
-import CatalogItem from './CatalogItem/CatalogItem'
-import styles from './Catalog.module.css'
 import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
+import { useFurnitureContext } from '../../contexts/FurnitureContext'
+
+import CatalogItem from './CatalogItem/CatalogItem'
+
+import styles from './Catalog.module.css'
 
 export default function Catalog() {
-	// const { furnitures } = useFurnitureContext()
 	const { furnitures, getFurnituresFunction } = useFurnitureContext()
 
-	useEffect(()=>{
+	useEffect(() => {
 		getFurnituresFunction()
 	}, [])
 

@@ -1,10 +1,13 @@
-import styles from './AdminMessages.module.css'
-import { getMessages } from '../../services/messageService'
 import { useEffect, useState } from 'react'
-import { useAuthContext } from '../../contexts/AuthContext'
-// import PurchasesItem from './PurchasesItem/PurchasesItem'
 import { Link } from 'react-router-dom'
+
+import { getMessages } from '../../services/messageService'
+
+import { useAuthContext } from '../../contexts/AuthContext'
+
 import AdminMessagesItem from './AdminMessagesItem/AdminMessagesItem'
+
+import styles from './AdminMessages.module.css'
 
 export default function AdminMessages() {
     const { setAuthOnError403 } = useAuthContext()
@@ -24,10 +27,10 @@ export default function AdminMessages() {
             })
     }, [setAuthOnError403])
 
-    const messagesList = messages?.map(x => <AdminMessagesItem 
+    const messagesList = messages?.map(x => <AdminMessagesItem
         key={x._id}
         message={x}
-        />)
+    />)
 
     return (
         <>

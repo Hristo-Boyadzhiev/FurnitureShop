@@ -1,21 +1,24 @@
+import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+
 import { useForm } from "../../hooks/useForm"
 import { useValidation } from "../../hooks/useValidation"
-import styles from './Contacts.module.css'
-import { useAuthContext } from "../../contexts/AuthContext"
-import { useNavigate } from "react-router-dom"
-import { useEffect } from "react"
+
 import { createMessage } from "../../services/messageService"
+
+import { useAuthContext } from "../../contexts/AuthContext"
+
+import styles from './Contacts.module.css'
 
 export default function Contacts() {
     const navigate = useNavigate()
-    const { isAdmin, email, setAuthOnError403} = useAuthContext()
+    const { isAdmin, email, setAuthOnError403 } = useAuthContext()
 
     useEffect(() => {
         if (isAdmin) {
             return navigate('/')
         }
     }, [isAdmin, navigate])
-
 
     const { formValues, onChangeHandler, onSubmit } = useForm({
         name: '',
@@ -29,16 +32,16 @@ export default function Contacts() {
         message: ''
     })
 
-    async function onSendMessageSubmit (){
+    async function onSendMessageSubmit() {
         try {
             await createMessage(formValues)
             navigate('/catalog')
         } catch (error) {
             if (error.message === 'Invalid access token') {
                 setAuthOnError403()
-              } else {
+            } else {
                 alert(error.message)
-              }
+            }
         }
     }
 

@@ -1,7 +1,9 @@
 import { createContext, useContext, useState } from "react";
-import { useAuthContext } from "./AuthContext";
+
 import { createPurchase, getUserPurchases, deletePurchase } from "../services/purchaseService";
 import { createCompletedPurchases } from "../services/completedPurchaseService";
+
+import { useAuthContext } from "./AuthContext";
 
 const PurchaseContext = createContext()
 
@@ -63,13 +65,13 @@ export default function PurchaseProvider({
                         alert(error.message)
                     }
                 })
-                createCompletedPurchases(purchase)    
+            createCompletedPurchases(purchase)
         });
         setUserPurchases([])
     }
 
-    const editPurchasesInState = (editedPurchase) =>{         
-        setUserPurchases(state=> state.map(x => x._id === editedPurchase._id ? editedPurchase : x))
+    const editPurchasesInState = (editedPurchase) => {
+        setUserPurchases(state => state.map(x => x._id === editedPurchase._id ? editedPurchase : x))
     }
 
     const PurchasesContextValues = {

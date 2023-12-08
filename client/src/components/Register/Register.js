@@ -1,8 +1,11 @@
-import { useForm } from "../../hooks/useForm"
-import { useValidation } from "../../hooks/useValidation"
-import { useAuthContext } from "../../contexts/AuthContext"
 import { useEffect } from "react"
 import { useNavigate, Link } from "react-router-dom"
+
+import { useForm } from "../../hooks/useForm"
+import { useValidation } from "../../hooks/useValidation"
+
+import { useAuthContext } from "../../contexts/AuthContext"
+
 import styles from './Register.module.css'
 
 export default function Register() {
@@ -46,7 +49,7 @@ export default function Register() {
                                 onChange={onChangeHandler}
                                 onBlur={onValidateHandler}
                             />
-                              {formErrors.email &&
+                            {formErrors.email &&
                                 <p className={styles["form-error"]}>
                                     {formErrors.email}
                                 </p>
@@ -60,7 +63,7 @@ export default function Register() {
                                 onChange={onChangeHandler}
                                 onBlur={onValidateHandler}
                             />
-                              {formErrors.password &&
+                            {formErrors.password &&
                                 <p className={styles["form-error"]}>
                                     {formErrors.password}
                                 </p>
@@ -74,7 +77,7 @@ export default function Register() {
                                 onChange={onChangeHandler}
                                 onBlur={onValidateHandler}
                             />
-                              {formErrors.repeatPassword &&
+                            {formErrors.repeatPassword &&
                                 <p className={styles["form-error"]}>
                                     {formErrors.repeatPassword}
                                 </p>

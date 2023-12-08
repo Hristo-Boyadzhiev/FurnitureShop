@@ -12,7 +12,6 @@ export default function useLocalStorage(key, initialValue) {
     })
 
     const setLocalStorage = (value) => {
-        //Да направя проверка, ако value е функция, първо да се изпълни и тогава Set-ваме
         if (value) {
             setState(value)
             localStorage.setItem(key, JSON.stringify(value))

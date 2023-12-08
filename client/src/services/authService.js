@@ -17,5 +17,5 @@ export async function register(formValues) {
 }
 
 export async function logout() {
-   return await api.get(endpoints.logout)
+    return await api.get(endpoints.logout)
 }

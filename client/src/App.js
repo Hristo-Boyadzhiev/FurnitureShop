@@ -37,7 +37,6 @@ function App() {
           <Route path='/register' element={<Register />} />
           <Route path='/catalog/:furnitureId/details/' element={<Details />} />
 
-
           <Route element={<AuthGuards />}>
           <Route path='/contacts' element={<Contacts />} />
             <Route path='/create' element={<Create />} />
