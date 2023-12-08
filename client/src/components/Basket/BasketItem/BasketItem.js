@@ -33,7 +33,7 @@ export default function BasketItem({
                     alert(error.message)
                   }
             })
-    }, [formValues.quantity])
+    }, [formValues.quantity, setAuthOnError403])
 
     const totalProduct = Number(formValues.quantity) * furniture.price
 
