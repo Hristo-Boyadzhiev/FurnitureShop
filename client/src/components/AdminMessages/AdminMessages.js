@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { getMessages } from '../../services/messageService'
 
@@ -10,10 +10,15 @@ import AdminMessagesItem from './AdminMessagesItem/AdminMessagesItem'
 import styles from './AdminMessages.module.css'
 
 export default function AdminMessages() {
-    const { setAuthOnError403 } = useAuthContext()
+    const { setAuthOnError403, isAdmin } = useAuthContext()
     const [messages, setMessages] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
+        if (!isAdmin) {
+            return navigate('/')
+        }
+
         getMessages()
             .then(currentMessages => {
                 setMessages(currentMessages)
