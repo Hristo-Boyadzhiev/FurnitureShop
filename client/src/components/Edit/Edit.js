@@ -14,7 +14,7 @@ import styles from './Edit.module.css'
 export default function Edit() {
     const { furnitureId } = useParams()
     const { onEditSubmit } = useFurnitureContext()
-    const { userId, setAuthOnError403 } = useAuthContext()
+    const { userId, setAuthOnError403, isAdmin } = useAuthContext()
     const navigate = useNavigate()
     
     const { formValues, onChangeHandler, onSubmit, changeValues } = useForm({
@@ -36,10 +36,10 @@ export default function Edit() {
     useEffect(() => {
         getFurniture(furnitureId)
             .then(furniture => {
-                const isOwner = userId === furniture._ownerId
-                if (!isOwner) {
+                if (!isAdmin) {
                     return navigate('/catalog')
-                } else {
+                }
+                 else {
                     changeValues(furniture)
                 }
             })
