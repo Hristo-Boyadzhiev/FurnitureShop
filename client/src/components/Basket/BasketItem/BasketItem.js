@@ -10,7 +10,6 @@ import { editPurchase } from '../../../services/purchaseService'
 
 import styles from './BasketItem.module.css'
 
-
 export default function BasketItem({
     furniture,
     purchase
