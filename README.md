@@ -18,7 +18,7 @@ Guests can explore the following features:
 
 •	**Catalog Page:** Showcases all available furniture on the website. Each product includes an image and a details button. In the absence of available furniture, a message is displayed: "No furniture yet," accompanied by a button redirecting users to the home page.
 
-•	**Details Page:** Presents detailed information about a selected product, including an image, product model, price, description, and a back button redirecting users to the catalog page. Guests can also view available comments for the selected product but cannot add or delete comments.
+•	**Details Page:** Presents detailed information about a selected product, including an image, product model, price, description, and a back button redirecting users to the catalog page. Guests can also view available comments and likes for the selected product but cannot add or delete comments and likes.
 
 •	**Login Page:** Features a form where guests must enter their email and password to log in as registered users and access the private section of the application. The login form includes input validations for email (valid email required) and password (minimum of 3 characters).
 
@@ -43,7 +43,7 @@ Admin user has access to the following features:
 
 •	**Purchases Page:** Provides information about purchases made by users. If no purchases have been made, it shows "No purchases yet" with a button redirecting users to the home page.
 
-•	**Details Page:** In addition to the information visible to guests, admin users can edit and delete furniture. The edit page loads a form with pre-filled data for the selected furniture. A delete button prompts confirmation or refusal to delete the specific furniture piece. The comments section includes a field to add a comment and a publish button. After adding a comment, its content is displayed, and a delete button.
+•	**Details Page:** In addition to the information visible to guests, admin users can edit and delete furniture. The edit page loads a form with pre-filled data for the selected furniture. A delete button prompts confirmation or refusal to delete the specific furniture piece. The admin can also see available total number of likes but cannot add or delete likes. The comments section includes a field to add a comment and a publish button. After adding a comment, its content is displayed, and a delete button.
 
 #### Non-Admin User Access
 
