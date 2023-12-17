@@ -9,8 +9,8 @@
   
   .left
   {
-	  background-color:rgba(0,0,0,.025);
-	  border-right:1px solid rgba(0,0,0,.05);
+	  /* background-color:rgba(0,0,0,.025); */
+	  /* border-right:1px solid rgba(0,0,0,.05); */
 	  float:right;
 	  height:100%;
 	  margin-left:-1px;
@@ -172,14 +172,16 @@
 
 }
 .div-image {
-	text-align: center
+	text-align: center;
+
   }
 
 .image-setup {
-width: 80%;
-margin-top: 200px;
+width: 70%;
+margin-top: 50px;
 margin-left: 20px;
 margin-right: 20px;
+background-color: white;
 }
 
 
@@ -339,4 +341,25 @@ margin-right: 20px;
 .form-group textarea.form-input {
     height: 150px;
 }
+
+.like-social {
+  margin-bottom:20px;
+  text-align: center;
+
+  .open_video_likes_div {
+    width: 20%;
+    margin: auto;
+    padding: 10px;
+    font-weight: bolder;
+    i {
+      font-size: 16px;
+      vertical-align: super;
+    }
+ 
+    border: 2px solid #04AA6D;
+  }
+}
+
+
+
 

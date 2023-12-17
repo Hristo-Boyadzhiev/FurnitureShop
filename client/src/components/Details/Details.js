@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 
 import { getFurniture } from '../../services/furnitureService'
 import { createComment, getComments, deleteComment } from '../../services/commentService'
+import { createLike, getAllLikes} from '../../services/likeService'
 
 import { useAuthContext } from '../../contexts/AuthContext'
 import { useFurnitureContext } from '../../contexts/FurnitureContext'
@@ -18,17 +19,18 @@ import styles from './Details.module.css'
 export default function Details() {
     const { furnitureId } = useParams()
     const [furniture, dispatch] = useReducer(furnitureReducer, '')
-    const { isAuthenticated, email, setAuthOnError403, isAdmin } = useAuthContext()
+    const { isAuthenticated, email, setAuthOnError403, isAdmin, userId } = useAuthContext()
     const { onDeleteClick } = useFurnitureContext()
     const { onBuyClick } = usePurchaseContext()
 
     useEffect(() => {
         Promise.all([
             getFurniture(furnitureId),
-            getComments(furnitureId)
+            getComments(furnitureId),
+            getAllLikes(furnitureId)
         ])
-            .then(([furnitureData, commentsData]) => {
-                const furnitureState = { ...furnitureData, commentsData }
+            .then(([furnitureData, commentsData, likesData]) => {
+                const furnitureState = { ...furnitureData, commentsData, likesData }
                 dispatch({
                     type: 'FURNITURE_FETCH',
                     payload: furnitureState
@@ -80,6 +82,24 @@ export default function Details() {
         }
     }
 
+    const onLikeClick = async (event) => {
+        try {
+            const newLike = await createLike(furnitureId, true)
+            dispatch({
+                type: 'LIKE_ADD',
+                payload: newLike
+            })
+        } catch (error) {
+            if (error.message === 'Invalid access token') {
+                setAuthOnError403()
+            } else {
+                alert(error.message)
+            }
+        }
+    }
+
+    let isUserLiked = furniture.likesData?.some(like => like._ownerId === userId)
+
     const commentsList = furniture.commentsData?.map(x => <Comment
         key={x._id}
         comment={x}
@@ -110,7 +130,13 @@ export default function Details() {
                         <span className={styles["skill-set"]}>
                             <div className={styles["skill-set-div"]}>
                                 {isAuthenticated && !isAdmin &&
-                                    <span className={styles["skill-set-span"]}><button className={`${styles["button"]} ${styles["button1"]}`} onClick={() => onBuyClick(furniture)}>Buy</button></span>
+                                    <>
+                                        <span className={styles["skill-set-span"]}><button className={`${styles["button"]} ${styles["button1"]}`} onClick={() => onBuyClick(furniture)}>Buy</button></span>
+                                        
+                                        {!isUserLiked &&
+                                            <span className={styles["skill-set-span"]}><button className={`${styles["button"]} ${styles["button1"]}`} onClick={() => onLikeClick(furniture)}>Like</button></span>
+                                        }
+                                    </>
                                 }
                                 <span className={styles["skill-set-span"]}><Link to={`/catalog/`} className={`${styles["button"]} ${styles["button1"]}`}>Back</Link></span>
 
@@ -120,6 +146,13 @@ export default function Details() {
                                         <span className={styles["skill-set-span"]}><button className={`${styles["button"]} ${styles["button1"]}`} onClick={() => onDeleteClick(furniture)}>Delete</button></span>
                                     </>
                                 }
+
+                                <div className={styles["like-social"]}>
+
+                                    <div className={styles["open_video_likes_div"]}>
+                                        <span> Likes: {furniture.likesData?.length}</span>
+                                    </div>
+                                </div>
                             </div>
                         </span>
                     </section>

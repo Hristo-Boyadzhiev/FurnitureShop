@@ -19,6 +19,16 @@ export default function furnitureReducer(state, action) {
                 ...state,
                 commentsData: state.commentsData.filter(comment => comment._id !== action.payload)
             }
+        case ('LIKE_ADD'):
+            return {
+                ...state,
+                likesData: [...state.likesData, action.payload]
+            }
+        case ('LIKE_DELETE'):
+            return {
+                ...state,
+                likesData: state.likesData.filter(like=> like._id !== action.payload)
+            }
         default:
             return state;
     }
