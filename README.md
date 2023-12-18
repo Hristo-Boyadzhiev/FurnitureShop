@@ -49,7 +49,8 @@ Admin user has access to the following features:
 
 Non-admin users have access to the following features:
 
-•	**Details Page:** In addition to the information visible to guests, a buy button is displayed. Clicking the button adds the product to the user's basket. The comments section includes a field to write a comment and a publish button. After adding a comment, its content is displayed, and a delete button.
+•	**Details Page:** 
+In addition to the information visible to guests, a buy button and a like button are displayed. Clicking the buy button adds the product to the user's basket. Clicking the like button adds a like in the total likes section. The comments section includes a field to write a comment and a publish button. After adding a comment, its content is displayed, and a delete button.
 
 •	**Basket Page:** Visualizes all furniture bought by the user. Each piece of furniture includes "product details" and "remove" buttons. A "confirm order" button opens a page stating "YOUR PURCHASE IS COMPLETED!" before redirecting users to the catalog page.
 
@@ -86,6 +87,8 @@ The guards to manage user access:
 | Edit furniture     |     ✅     |     ❌     |     ❌     |
 | Delete furniture   |     ✅     |     ❌     |     ❌     |
 | Buy furniture      |     ❌     |     ✅     |     ❌     |
+| Like furniture      |     ❌     |     ✅     |     ❌     |
+| Furniture likes       |     ✅     |     ✅     |     ✅     |
 | View comments      |     ✅     |     ✅     |     ✅     |
 | Create comment     |     ✅     |     ✅     |     ❌     |
 | Delete own comment  |     ✅     |     ✅     |     ❌     |
