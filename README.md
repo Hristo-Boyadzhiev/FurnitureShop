@@ -1,7 +1,7 @@
 # Furniture Shop
 
 ## Project Description
-FurnitureShop is a Single Page Application (SPA) designed for selling furniture online. The website is constructed using ReactJS, with HTML and CSS for the frontend. The backend utilizes the Softuni Practice Server, built on NodeJS.
+FurnitureShop is a Single Page Application (SPA) designed for selling furniture online. The website is constructed using ReactJS, with HTML and CSS for the frontend. A pre-made SoftUni Practice Server is utilized for the backend.
 
 **The application comprises two main parts:**
 
