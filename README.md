@@ -76,7 +76,7 @@ The guards to manage user access:
 
 •	If an admin attempts to enter a page requiring user privileges, they are redirected to the home page.
 
-### Functionalities access
+## Functionalities access
 
 | Functionality      |   Admin   |   User    |   Guest   |
 | ------------------ |:---------:|:---------:|:---------:|
@@ -102,9 +102,21 @@ The guards to manage user access:
 | Register page      |     ❌     |     ❌     |     ✅     |
 | Logout             |     ✅     |     ✅     |     ❌     |
 
+## Tech Stack
 
+### Library
+- React: A JavaScript library for building user interfaces. It is used under the MIT License. You can find it [here](https://github.com/facebook/react/blob/main/LICENSE);
+  
+### Approaches & Techniques
+- Semantic HTML;
+- CSS Modules.
 
-### Validation
+## License
+This project uses the React library, which is licensed under the MIT License.
+
+MIT License allows for free use, modification, and distribution of the code, as long as the original license text and copyright notice are included in all copies or substantial portions of the software.
+
+## Validation
 
 Input field validation occurs when exiting a field, thanks to the "onBlur" event. This validation is facilitated by the "useValidation" custom hook.
 
